@@ -126,7 +126,7 @@
   --second-background-color: #242529;
   --third-background-color: #292b2f;
   --third-background-color-transparent: rgba(32,33,36,0.6);
-  --primary-color: #a31f34;
+  --primary-color: #91a264;
   --first-text-color: #d2d2d7;
   --second-text-color: #cbcbd1;
   --third-text-color: #9595a2;
@@ -134,7 +134,7 @@
   --default-text-color: #bebec6;
   --invert-text-color: #373d3f;
   --border-color: rgba(255,255,255,0.08);
-  --selection-color: #be243c;
+  --selection-color: #9cab74;
   --shadow-color-1: rgba(255,255,255,0.08);
   --shadow-color-2: rgba(255,255,255,0.05);
   --shadow-hover-color: rgba(69,69,69,0.28);
@@ -173,7 +173,7 @@
   --second-background-color: #fafafa;
   --third-background-color: #f7f7f7;
   --third-background-color-transparent: rgba(241,241,241,0.6);
-  --primary-color: #a31f34;
+  --primary-color: #91a264;
   --first-text-color: #323739;
   --second-text-color: #343a3c;
   --third-text-color: #5c6669;
@@ -181,7 +181,7 @@
   --default-text-color: #373d3f;
   --invert-text-color: #bebec6;
   --border-color: rgba(0,0,0,0.08);
-  --selection-color: #be243c;
+  --selection-color: #9cab74;
   --shadow-color-1: rgba(0,0,0,0.08);
   --shadow-color-2: rgba(0,0,0,0.05);
   --shadow-hover-color: rgba(0,0,0,0.28);
@@ -220,7 +220,7 @@
   --second-background-color: #242529;
   --third-background-color: #292b2f;
   --third-background-color-transparent: rgba(32,33,36,0.6);
-  --primary-color: #a31f34;
+  --primary-color: #91a264;
   --first-text-color: #d2d2d7;
   --second-text-color: #cbcbd1;
   --third-text-color: #9595a2;
@@ -228,7 +228,7 @@
   --default-text-color: #bebec6;
   --invert-text-color: #373d3f;
   --border-color: rgba(255,255,255,0.08);
-  --selection-color: #be243c;
+  --selection-color: #9cab74;
   --shadow-color-1: rgba(255,255,255,0.08);
   --shadow-color-2: rgba(255,255,255,0.05);
   --shadow-hover-color: rgba(69,69,69,0.28);
@@ -890,24 +890,24 @@ button {
   :root {
     --inline-code-foreground: #c9d1d9;
     --inline-code-background: #313131;
-    --highlight-background: #1e1e1e;
-    --highlight-foreground: #dcdcdc;
-    --highlight-keyword: #569cd6;
-    --highlight-link: #569cd6;
-    --highlight-built-in: #4ec9b0;
-    --highlight-number: #b8d7a3;
-    --highlight-string: #d69d85;
-    --highlight-regexp: #9a5334;
-    --highlight-subst: #dcdcdc;
-    --highlight-comment: #57a64a;
-    --highlight-doctag: #608b4e;
-    --highlight-meta: #9b9b9b;
-    --highlight-variable: #bd63c5;
-    --highlight-attr: #9cdcfe;
-    --highlight-section: #ffd700;
-    --highlight-bullet: #d7ba7d;
-    --highlight-addition: #144212;
-    --highlight-deletion: #600;
+    --highlight-background: #282c34;
+    --highlight-foreground: #abb2bf;
+    --highlight-keyword: #c678dd;
+    --highlight-link: #61aeee;
+    --highlight-built-in: #e6c07b;
+    --highlight-number: #d19a66;
+    --highlight-string: #98c379;
+    --highlight-regexp: #98c379;
+    --highlight-subst: #e06c75;
+    --highlight-comment: #5c6370;
+    --highlight-doctag: #c678dd;
+    --highlight-meta: #61aeee;
+    --highlight-variable: #d19a66;
+    --highlight-attr: #d19a66;
+    --highlight-section: #e06c75;
+    --highlight-bullet: #61aeee;
+    --highlight-addition: #98c379;
+    --highlight-deletion: #e06c75;
   }
 }
 .light-mode {
@@ -935,24 +935,24 @@ button {
 .dark-mode {
   --inline-code-foreground: #c9d1d9;
   --inline-code-background: #313131;
-  --highlight-background: #1e1e1e;
-  --highlight-foreground: #dcdcdc;
-  --highlight-keyword: #569cd6;
-  --highlight-link: #569cd6;
-  --highlight-built-in: #4ec9b0;
-  --highlight-number: #b8d7a3;
-  --highlight-string: #d69d85;
-  --highlight-regexp: #9a5334;
-  --highlight-subst: #dcdcdc;
-  --highlight-comment: #57a64a;
-  --highlight-doctag: #608b4e;
-  --highlight-meta: #9b9b9b;
-  --highlight-variable: #bd63c5;
-  --highlight-attr: #9cdcfe;
-  --highlight-section: #ffd700;
-  --highlight-bullet: #d7ba7d;
-  --highlight-addition: #144212;
-  --highlight-deletion: #600;
+  --highlight-background: #282c34;
+  --highlight-foreground: #abb2bf;
+  --highlight-keyword: #c678dd;
+  --highlight-link: #61aeee;
+  --highlight-built-in: #e6c07b;
+  --highlight-number: #d19a66;
+  --highlight-string: #98c379;
+  --highlight-regexp: #98c379;
+  --highlight-subst: #e06c75;
+  --highlight-comment: #5c6370;
+  --highlight-doctag: #c678dd;
+  --highlight-meta: #61aeee;
+  --highlight-variable: #d19a66;
+  --highlight-attr: #d19a66;
+  --highlight-section: #e06c75;
+  --highlight-bullet: #61aeee;
+  --highlight-addition: #98c379;
+  --highlight-deletion: #e06c75;
 }
 pre,
 .highlight {
@@ -968,7 +968,7 @@ pre,
 pre,
 code {
   line-height: 1.5 !important;
-  font-family: 'Geist Mono', Courier, monospace !important;
+  font-family: 'Cascadia Mono', 'Geist Mono', Courier, monospace !important;
 }
 pre.mermaid {
   background-color: var(--background-color);
@@ -1735,7 +1735,7 @@ pre .deletion {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(120deg, rgba(247,135,54,0.208) 0%, rgba(54,125,247,0.208) 100%);
+  background: linear-gradient(120deg, rgba(162,45,96,0.145) 0%, rgba(29,60,16,0.145) 100%);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   padding-top: 2px;
@@ -2695,7 +2695,7 @@ html.is-animating .scroll-progress-bar {
   --waline-light-grey: #999;
   --waline-dark-grey: #666;
   --waline-theme-color: var(--primary-color);
-  --waline-active-color: #be243c;
+  --waline-active-color: #9cab74;
   --waline-color: #444;
   --waline-bgcolor: var(--background-color);
   --waline-bgcolor-light: var(--second-background-color);
@@ -5228,7 +5228,7 @@ div.tabs .tab-content .tab-pane .note:last-child {
   position: relative;
   box-sizing: border-box;
   width: 80%;
-  max-width: 1000px;
+  max-width: 1600px;
   height: 100%;
   transition-property: color, background, box-shadow, border-color, max-width, width;
   transition-delay: 0s, 0s, 0s, 0s, 0s, 0s;
@@ -5246,7 +5246,7 @@ div.tabs .tab-content .tab-pane .note:last-child {
   }
 }
 .page-container .main-content-container .main-content-body .main-content.has-toc {
-  max-width: 1200px !important;
+  max-width: 1920px !important;
 }
 .page-container .main-content-container .main-content-body .main-content-footer {
   width: 100%;
@@ -5467,16 +5467,16 @@ html.is-animating .transition-fade-down {
   transition: all 0.2s ease;
 }
 .home-content-container {
-  margin-right: 38px;
+  margin-left: 38px;
 }
 @media (max-width: 768px) {
   .home-content-container {
-    margin-right: 0;
+    margin-left: 0;
   }
 }
 @media (max-width: 640px) {
   .home-content-container {
-    margin-right: 0;
+    margin-left: 0;
   }
 }
 .home-content-container .seo-reader-text {
