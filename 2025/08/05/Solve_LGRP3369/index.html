@@ -123,7 +123,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://FirsryFan.github.io/2025/08/05/题解：p3369 【模板】普通平衡树/"/>
+    <link rel="canonical" href="https://FirsryFan.github.io/2025/08/05/solve_lgrp3369/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -133,18 +133,18 @@
         
         <meta name="description" content="乌云阻拦，明月涌河湾，他起身独立向荒原。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Solve_LGRP3369">
-<meta property="og:url" content="https://firsryfan.github.io/2025/08/05/%E9%A2%98%E8%A7%A3%EF%BC%9AP3369%20%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%E6%99%AE%E9%80%9A%E5%B9%B3%E8%A1%A1%E6%A0%91/index.html">
+<meta property="og:title" content="学术：P3369 【模板】普通平衡树">
+<meta property="og:url" content="https://firsryfan.github.io/2025/08/05/Solve_LGRP3369/index.html">
 <meta property="og:site_name" content="Zone of Algorithm">
 <meta property="og:description" content="乌云阻拦，明月涌河湾，他起身独立向荒原。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://firsryfan.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-08-04T23:10:19.000Z">
-<meta property="article:modified_time" content="2025-08-05T02:37:38.162Z">
+<meta property="article:modified_time" content="2025-08-05T02:50:45.281Z">
 <meta property="article:author" content="Firsry">
-<meta property="article:tag" content="solve">
 <meta property="article:tag" content="data_structure">
 <meta property="article:tag" content="template">
+<meta property="article:tag" content="Treap">
 <meta property="article:tag" content="FHQ_Treap">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://firsryfan.github.io/images/redefine-og.webp">
@@ -159,7 +159,7 @@
     
     <title>
         
-            Solve_LGRP3369 | Zone of Algorithm
+            学术：P3369 【模板】普通平衡树 | Zone of Algorithm
         
     </title>
 
@@ -491,7 +491,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -514,7 +514,7 @@ mjx-container[display="true"] + br {
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Solve_LGRP3369</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">学术：P3369 【模板】普通平衡树</h1>
 			</div>
 			
 		</div>
@@ -542,8 +542,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-05 10:37:38</span>
-            <span class="mobile">2025-08-05 10:37:38</span>
+            <span class="desktop">2025-08-05 10:50:45</span>
+            <span class="mobile">2025-08-05 10:50:45</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -557,7 +557,7 @@ mjx-container[display="true"] + br {
                     
                         
                         <li>
-                            <a href="/categories/solve/">solve</a>&nbsp;
+                            <a href="/categories/scholar/">scholar</a>&nbsp;
                         </li>
                     
                     
@@ -567,7 +567,7 @@ mjx-container[display="true"] + br {
                             <li>></li>
                         
                         <li>
-                            <a href="/categories/solve/LGR/">LGR</a>&nbsp;
+                            <a href="/categories/scholar/OI/">OI</a>&nbsp;
                         </li>
                     
                     
@@ -581,15 +581,15 @@ mjx-container[display="true"] + br {
             <ul>
                 
                     <li>
-                        <a href="/tags/solve/">solve</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/data-structure/">data_structure</a>&nbsp;
+                        <a href="/tags/data-structure/">data_structure</a>&nbsp;
                     </li>
                 
                     <li>
                         | <a href="/tags/template/">template</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Treap/">Treap</a>&nbsp;
                     </li>
                 
                     <li>
@@ -619,9 +619,68 @@ mjx-container[display="true"] + br {
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<h1 id="P3369-【模板】普通平衡树"><a href="#P3369-【模板】普通平衡树" class="headerlink" title="P3369 【模板】普通平衡树"></a>P3369 【模板】普通平衡树</h1><p>当然是去写 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.439ex;" xmlns="http://www.w3.org/2000/svg" width="11.495ex" height="2.032ex" role="img" focusable="false" viewBox="0 -704 5081 898"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D439" d="M48 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H742Q749 676 749 669Q749 664 736 557T722 447Q720 440 702 440H690Q683 445 683 453Q683 454 686 477T689 530Q689 560 682 579T663 610T626 626T575 633T503 634H480Q398 633 393 631Q388 629 386 623Q385 622 352 492L320 363H375Q378 363 398 363T426 364T448 367T472 374T489 386Q502 398 511 419T524 457T529 475Q532 480 548 480H560Q567 475 567 470Q567 467 536 339T502 207Q500 200 482 200H470Q463 206 463 212Q463 215 468 234T473 274Q473 303 453 310T364 317H309L277 190Q245 66 245 60Q245 46 334 46H359Q365 40 365 39T363 19Q359 6 353 0H336Q295 2 185 2Q120 2 86 2T48 1Z"></path></g><g data-mml-node="mi" transform="translate(749,0)"><path data-c="1D43B" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 219 683Q260 681 355 681Q389 681 418 681T463 682T483 682Q499 682 499 672Q499 670 497 658Q492 641 487 638H485Q483 638 480 638T473 638T464 637T455 637Q416 636 405 634T387 623Q384 619 355 500Q348 474 340 442T328 395L324 380Q324 378 469 378H614L615 381Q615 384 646 504Q674 619 674 627T617 637Q594 637 587 639T580 648Q580 650 582 660Q586 677 588 679T604 682Q609 682 646 681T740 680Q802 680 835 681T871 682Q888 682 888 672Q888 645 876 638H874Q872 638 869 638T862 638T853 637T844 637Q805 636 794 634T776 623Q773 618 704 340T634 58Q634 51 638 51Q646 48 692 46H723Q729 38 729 37T726 19Q722 6 716 0H701Q664 2 567 2Q533 2 504 2T458 2T437 1Q420 1 420 10Q420 15 423 24Q428 43 433 45Q437 46 448 46H454Q481 46 514 49Q520 50 522 50T528 55T534 64T540 82T547 110T558 153Q565 181 569 198Q602 330 602 331T457 332H312L279 197Q245 63 245 58Q245 51 253 49T303 46H334Q340 38 340 37T337 19Q333 6 327 0H312Q275 2 178 2Q144 2 115 2T69 2T48 1Q31 1 31 10Q31 12 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"></path></g><g data-mml-node="mi" transform="translate(1637,0)"><path data-c="1D444" d="M399 -80Q399 -47 400 -30T402 -11V-7L387 -11Q341 -22 303 -22Q208 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435Q740 255 592 107Q529 47 461 16L444 8V3Q444 2 449 -24T470 -66T516 -82Q551 -82 583 -60T625 -3Q631 11 638 11Q647 11 649 2Q649 -6 639 -34T611 -100T557 -165T481 -194Q399 -194 399 -87V-80ZM636 468Q636 523 621 564T580 625T530 655T477 665Q429 665 379 640Q277 591 215 464T153 216Q153 110 207 59Q231 38 236 38V46Q236 86 269 120T347 155Q372 155 390 144T417 114T429 82T435 55L448 64Q512 108 557 185T619 334T636 468ZM314 18Q362 18 404 39L403 49Q399 104 366 115Q354 117 347 117Q344 117 341 117T337 118Q317 118 296 98T274 52Q274 18 314 18Z"></path></g><g data-mml-node="mi" transform="translate(2428,0)"><path data-c="1D447" d="M40 437Q21 437 21 445Q21 450 37 501T71 602L88 651Q93 669 101 677H569H659Q691 677 697 676T704 667Q704 661 687 553T668 444Q668 437 649 437Q640 437 637 437T631 442L629 445Q629 451 635 490T641 551Q641 586 628 604T573 629Q568 630 515 631Q469 631 457 630T439 622Q438 621 368 343T298 60Q298 48 386 46Q418 46 427 45T436 36Q436 31 433 22Q429 4 424 1L422 0Q419 0 415 0Q410 0 363 1T228 2Q99 2 64 0H49Q43 6 43 9T45 27Q49 40 55 46H83H94Q174 46 189 55Q190 56 191 56Q196 59 201 76T241 233Q258 301 269 344Q339 619 339 625Q339 630 310 630H279Q212 630 191 624Q146 614 121 583T67 467Q60 445 57 441T43 437H40Z"></path></g><g data-mml-node="mi" transform="translate(3132,0)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(3583,0)"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="mi" transform="translate(4049,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(4578,0)"><path data-c="1D45D" d="M23 287Q24 290 25 295T30 317T40 348T55 381T75 411T101 433T134 442Q209 442 230 378L240 387Q302 442 358 442Q423 442 460 395T497 281Q497 173 421 82T249 -10Q227 -10 210 -4Q199 1 187 11T168 28L161 36Q160 35 139 -51T118 -138Q118 -144 126 -145T163 -148H188Q194 -155 194 -157T191 -175Q188 -187 185 -190T172 -194Q170 -194 161 -194T127 -193T65 -192Q-5 -192 -24 -194H-32Q-39 -187 -39 -183Q-37 -156 -26 -148H-6Q28 -147 33 -136Q36 -130 94 103T155 350Q156 355 156 364Q156 405 131 405Q109 405 94 377T71 316T59 280Q57 278 43 278H29Q23 284 23 287ZM178 102Q200 26 252 26Q282 26 310 49T356 107Q374 141 392 215T411 325V331Q411 405 350 405Q339 405 328 402T306 393T286 380T269 365T254 350T243 336T235 326L232 322Q232 321 229 308T218 264T204 212Q178 106 178 102Z"></path></g></g></g></svg></mjx-container> 板子了！</p>
-<div class="code-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LL long long</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">FHQNode</span> {</span><br><span class="line">    <span class="type">int</span> lson;</span><br><span class="line">    <span class="type">int</span> rson;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    <span class="type">int</span> key;</span><br><span class="line">    <span class="type">int</span> siz;</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>BST 和 Heap 都是两个可以有很多等效结构的数据结构，这种灵活性让他们具有了同时维护的可能性。而 Treap 就是这样一种结合的产物。</p>
+<p>Treap 有一个很方便的点：他完全分化了职责，数据处理交给 BST，平衡性交给 Heap，所以只要在平衡树旋转或者依据路径拆合的过程中，注意一下 <code>key</code> 值带来的顺序即可。所以这些操作不管有多么花哨，只要保证了堆性质，就可以保证一定的平衡性，而不用担心退化问题。</p>
+<p>本文涉及的 <code>zig, zag, split, merge</code> 操作都是 <code>Cpp</code> 语言之美的体现，传参传地址和灵活的递归让代码实现非常简洁，同时让初学者脑壳痛，难以理清楚具体的运行过程，下面进行解析。</p>
+<h2 id="Treap-的旋转"><a href="#Treap-的旋转" class="headerlink" title="Treap 的旋转"></a>Treap 的旋转</h2><p>我们说对节点 <code>fat</code> 进行右旋，指的是把 <code>fat</code> 向右下方按到下面去，而把他的儿子 <code>cur</code> 提起来，放在自己的位置，下面是代码以及图解过程。</p>
+<p>关于左旋……右旋都会了，左旋就对代码异或一下，原理也是一样，不多废话。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>请注意这份代码其实并不简洁，很多地方为了方便理解而特殊设置，比如临时变量 <code>fat</code> 和 <code>ancSon</code> 这么奇怪的变量名，所以请理解之后根据自己的习惯打磨属于自己的板子。</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">zig</span><span class="params">(<span class="type">int</span>&amp; ancSon)</span> </span>{</span><br><span class="line">  <span class="type">int</span> fat = ancSon;</span><br><span class="line">  <span class="type">int</span> cur = <span class="built_in">lson</span>(fat);</span><br><span class="line">	<span class="built_in">lson</span>(fat) = <span class="built_in">rson</span>(cur);</span><br><span class="line">	<span class="built_in">rson</span>(cur) = fat;</span><br><span class="line">	<span class="built_in">pushUp</span>(fat);</span><br><span class="line">	<span class="built_in">pushUp</span>(cur);</span><br><span class="line">	ancSon = cur;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
 
+
+
+<h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><p>这是原来的树的形态（其他子树，不涉及改动，也不好看，就没有显示）： <img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/62oparsq.png" alt="img"></p>
+<p><code>lson(fat) = rson(cur)</code>，安排 <code>rson</code> 的后事，让 <code>fat</code> 来接管，满足 BST 性质，且让父子关系改变（把这种中间状态映射到父子之类的人人关系上还是太抽象了）。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/ll12c5rw.png" alt="img"></p>
+<p><code>rson(cur) = fat</code>，注意 <code>rson</code> 后改动，不然原本的 <code>rson</code> 就没人接管，被丢掉了。这个时候已经看到 <code>fat, cur</code> 已经构建成了反的父子关系。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/ccavxg45.png" alt="img"></p>
+<p>不过与 <code>fat</code> 产生关系的还有 <code>fat(fat)</code>，也就是 <code>anc</code>。</p>
+<p>这一点是比较不好从代码层面上理解的，所以这里我把传参的名字改成了 <code>ancSon</code>。虽然逻辑上和 <code>fat</code> 是一个东西，但是在存储上完全不同。<code>ancSon = cur</code> 的意思就是让来自 <code>anc</code> 的指针指向 <code>cur</code>，所以在后文 FHQ 的 <code>split</code> 操作时，我愿意把它命名为 <code>link</code>。不过熟悉之后就没有写成这样的必要了。</p>
+<p>处理了这个，逻辑上就完善了，整理一下可视化就是最后的样子。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/djkypclj.png" alt="img"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/s304es1v.png" alt="img"></p>
+<h2 id="FHQ-的-Split-Merge"><a href="#FHQ-的-Split-Merge" class="headerlink" title="FHQ 的 Split & Merge"></a>FHQ 的 Split &amp; Merge</h2><h3 id="Split"><a href="#Split" class="headerlink" title="Split"></a>Split</h3><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">split</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> v, <span class="type">int</span>&amp; linkA, <span class="type">int</span>&amp; linkB)</span> </span>{</span><br><span class="line">	<span class="keyword">if</span> (p == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> linkA = linkB = <span class="number">0</span>, <span class="built_in">void</span>();</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">val</span>(p) &lt;= v) {</span><br><span class="line">		linkA = p;</span><br><span class="line">		<span class="built_in">split</span>(<span class="built_in">rsn</span>(p), v, <span class="built_in">rsn</span>(p), linkB);</span><br><span class="line">	} <span class="keyword">else</span> {</span><br><span class="line">		linkB = p;</span><br><span class="line">		<span class="built_in">split</span>(<span class="built_in">lsn</span>(p), v, linkA, <span class="built_in">lsn</span>(p));</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">pushUp</span>(p);</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>先说 <code>Split</code>，祭上这个上课时 why 的手绘图，而我们照样去 <code>split(13)</code>。</p>
+<p>接下来是视觉盛宴，请欣赏（不要在意作图的时候一些小细节）。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/3u35fzd1.png" alt="img"></p>
+<p>我们首先创建 <code>linkA, linkB</code>，这个时候都还是初始的，也就是 <code>split</code> 函数当中创建的变量。</p>
+<p>我们发现 <code>10 &lt; 13</code>，于是让 <code>linkA</code> 为 <code>10</code> 节点。 <img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/slq80ae1.png" alt="img"></p>
+<p>接下来递归调用下一层，此时传入的函数参数 <code>linkA</code> 实际上是 <code>10</code> 节点的右儿子，这意味着下图的关系：<code>10</code> 的右儿子处于待定状态，而不再是原来的 <code>14</code> 节点。这个时候，我们可以保证 <code>10</code> 以及其左子树一定是小于 <code>13</code> 的，但是其右子树仍然有小于 <code>13</code> 节点存在的可能性，所以继续向右寻找。</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">split</span>(<span class="built_in">rson</span>(p), v, <span class="built_in">rson</span>(p), linkB)</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>请注意，后续操作中有赋值语句更改 <code>rson(p)</code>，所以逻辑上 <code>10, 14</code> 处于断开状态，但是存储上，调用的时候的第一位 <code>rson(p)</code> 仍然是 <code>14</code> 节点。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/76tipfs3.png" alt="img"></p>
+<p>同理，当我们向右继续寻找的时候，发现 <code>14 &gt; 13</code>，于是让 <code>linkB</code> 指向 <code>14</code> 节点，然后向不确定的左子树继续寻找。 <img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/2he3mu2a.png" alt="img"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/jdm3hi0m.png" alt="img"></p>
+<p>发现 <code>12 &lt; 13</code>，这意味着我们的传参 <code>linkA</code>，其本质是 <code>rson(10 节点)</code>，要进行赋值语句了。</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">linkA = p;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>这就是下面这一步 <code>linkA</code> 指向 <code>12</code> 节点所体现的。其余的操作一致，自行理解，不再赘述。 <img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/1j7fq35g.png" alt="img"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/4rnwqj6n.png" alt="img"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/75hnpx6j.png" alt="img"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/qbk6k3kw.png" alt="img"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/ffisjk30.png" alt="img"></p>
+<p>在这里我们继续向 <code>13.5</code> 的左子树走下去，发现 <code>p == 0</code>，意味着两棵树已经被完全分开了。我们每次借助 <code>linkA, linkB</code> 的传承，每一步都拆掉了一条边。在走完 <code>10 -&gt; 14 -&gt; 12 -&gt; 13 -&gt; 13.5</code> 的一条根到叶子的路径之后，我们就成功用 <em>O</em>(log<em>N</em>) 的时间复杂度把整棵树劈开了。此时，<code>linkA, linkB</code> 就指向原来留存的空节点 <code>0</code> 即可。 <img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/543e7n95.png" alt="img"></p>
+<p>可视化整理一下就是这个样子，很好看。根据上文，沿着一条路径剖开，其相对位置是保持不变的，所以 Tree 性质和 Heap 性质都没有被破坏掉，是非常完美的一个处理平衡树的思路。（小蒟蒻本以为旋转就是灵活性的极限了，没想到还有狠人） <img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/881fbak3.png" alt="img"></p>
+<h3 id="Merge"><a href="#Merge" class="headerlink" title="Merge"></a>Merge</h3><p>关于 Merge，其实也就好理解了。这其实就是一个争儿子的过程。</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">merge</span><span class="params">(<span class="type">int</span> linkA, <span class="type">int</span> linkB)</span> </span>{</span><br><span class="line">	<span class="keyword">if</span> (!linkA || !linkB)</span><br><span class="line">		<span class="keyword">return</span> linkA + linkB;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">key</span>(linkA) &gt; <span class="built_in">key</span>(linkB)) {</span><br><span class="line">		<span class="built_in">rsn</span>(linkA) = <span class="built_in">merge</span>(<span class="built_in">rsn</span>(linkA), linkB);</span><br><span class="line">		<span class="built_in">pushUp</span>(linkA);</span><br><span class="line">		<span class="keyword">return</span> linkA;</span><br><span class="line">	} <span class="keyword">else</span> {</span><br><span class="line">		<span class="built_in">lsn</span>(linkB) = <span class="built_in">merge</span>(linkA, <span class="built_in">lsn</span>(linkB));</span><br><span class="line">		<span class="built_in">pushUp</span>(linkB);</span><br><span class="line">		<span class="keyword">return</span> linkB;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>这里假设 <code>val(A) &lt; val(B), key(A) &gt; key(B)</code>。</p>
+<p>考虑对 <code>rtA, rtB</code> 进行合并。首先根据 <code>key</code> 值，<code>rtA</code> 肯定是父亲。那么问题就是合并之后 <code>rtA</code> 有两个可能的右儿子：<code>rson, rtB</code>，因为都满足 Tree 性质和 Heap 性质。所以怎么办呢，要考虑对 <code>rson, rtB</code> 进行合并。</p>
+<p>容易发现是递归处理的，因为在缝合路径上都会存在多了一个儿子的问题，直到到达叶子节点，那个时候就是我们的决策边界。我们只需要 <code>return</code> 一下到底谁才是最后的根，随后其他节点依次根据下方传来的判断更新即可。容易发现还是一个根到叶子的路径，仍然是 <em>O</em>(log<em>n</em>) 的复杂度。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/z4rrxp8e.png" alt="img"></p>
+<p>希望读完以后能够让大家有更深刻的理解。以上，感谢。</p>
+<p>update：</p>
+<p>由于 <code>graph editor</code> 的灵活性，在 <code>linkA</code> 接到 <code>13</code> 节点下方是，应该是右儿子。（它自己飘到左边去了）</p>
 
 		</div>
 
@@ -629,18 +688,18 @@ mjx-container[display="true"] + br {
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> Solve_LGRP3369</li>
+        <li><strong>Title:</strong> 学术：P3369 【模板】普通平衡树</li>
         <li><strong>Author:</strong> Firsry</li>
         <li><strong>Created at
                 :</strong> 2025-08-05 07:10:19</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-05 10:37:38
+                    :</strong> 2025-08-05 10:50:45
             </li>
         
         <li>
-            <strong>Link:</strong> https://github.com/FirsryFan/FirsryFan.github.io/2025/08/05/题解：P3369 【模板】普通平衡树/
+            <strong>Link:</strong> https://github.com/FirsryFan/FirsryFan.github.io/2025/08/05/Solve_LGRP3369/
         </li>
         <li>
             <strong>
@@ -662,15 +721,15 @@ mjx-container[display="true"] + br {
 		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
 			
 			<li class="tag-item mx-0.5">
-				<a href="/tags/solve/">#solve</a>&nbsp;
-			</li>
-			
-			<li class="tag-item mx-0.5">
 				<a href="/tags/data-structure/">#data_structure</a>&nbsp;
 			</li>
 			
 			<li class="tag-item mx-0.5">
 				<a href="/tags/template/">#template</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Treap/">#Treap</a>&nbsp;
 			</li>
 			
 			<li class="tag-item mx-0.5">
@@ -684,6 +743,18 @@ mjx-container[display="true"] + br {
 
 		
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/08/05/Scholar-Treap-FHQ-Treap/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">学术：Treap/FHQ_Treap</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
 			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
@@ -751,8 +822,8 @@ mjx-container[display="true"] + br {
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
-		<div class="page-title">Solve_LGRP3369</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#P3369-%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%E6%99%AE%E9%80%9A%E5%B9%B3%E8%A1%A1%E6%A0%91"><span class="nav-text">P3369 【模板】普通平衡树</span></a></li></ol>
+		<div class="page-title">学术：P3369 【模板】普通平衡树</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Treap-%E7%9A%84%E6%97%8B%E8%BD%AC"><span class="nav-text">Treap 的旋转</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E8%A7%A3"><span class="nav-text">图解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FHQ-%E7%9A%84-Split-Merge"><span class="nav-text">FHQ 的 Split &amp; Merge</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Split"><span class="nav-text">Split</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Merge"><span class="nav-text">Merge</span></a></li></ol></li></ol>
 
 	</div>
 </div>
@@ -779,7 +850,7 @@ mjx-container[display="true"] + br {
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        2 posts in total
+                        3 posts in total
                     </span>
                     
                 </p>
