@@ -133,14 +133,14 @@
         
         <meta name="description" content="前几篇重链剖分题解中都说或者用到了一个结论：重链剖分最多把一棵树剖分成  条链。 那我问你，如果我祭出这张图，阁下如何应对？  这个结论是错误的。而且影响很大，考场上全  一个明明可以切的题目是划不来的。仅仅是这道题目的数据允许了这样的通过。巧合而已。 因为每个叶子节点与每条链一一映射，链的数量是和叶子节点数量持平的，而最多为  的级别（树仅仅只有根节点和叶结点）。如果是这样，那么空间复杂度又会超">
 <meta property="og:type" content="article">
-<meta property="og:title" content="题解：P5391 [Cnoi2019] 青染之心">
+<meta property="og:title" content="题解： 题解：P5391 [Cnoi2019] 青染之心">
 <meta property="og:url" content="https://firsryfan.github.io/2025/08/05/%E9%A2%98%E8%A7%A3%EF%BC%9AP5391-Cnoi2019-%E9%9D%92%E6%9F%93%E4%B9%8B%E5%BF%83/index.html">
 <meta property="og:site_name" content="Zone of Algorithm">
 <meta property="og:description" content="前几篇重链剖分题解中都说或者用到了一个结论：重链剖分最多把一棵树剖分成  条链。 那我问你，如果我祭出这张图，阁下如何应对？  这个结论是错误的。而且影响很大，考场上全  一个明明可以切的题目是划不来的。仅仅是这道题目的数据允许了这样的通过。巧合而已。 因为每个叶子节点与每条链一一映射，链的数量是和叶子节点数量持平的，而最多为  的级别（树仅仅只有根节点和叶结点）。如果是这样，那么空间复杂度又会超">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://firsryfan.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-08-05T14:29:37.000Z">
-<meta property="article:modified_time" content="2025-08-05T14:32:02.237Z">
+<meta property="article:modified_time" content="2025-08-06T02:33:59.541Z">
 <meta property="article:author" content="Firsry">
 <meta property="article:tag" content="图论">
 <meta property="article:tag" content="动态规划">
@@ -162,7 +162,7 @@
     
     <title>
         
-            题解：P5391 [Cnoi2019] 青染之心 | Zone of Algorithm
+            题解： 题解：P5391 [Cnoi2019] 青染之心 | Zone of Algorithm
         
     </title>
 
@@ -191,6 +191,8 @@
 
     <!--- Font Part-->
     
+        <link href="" rel="stylesheet">
+    
     
         <link href="" rel="stylesheet">
     
@@ -207,7 +209,7 @@
 
     <script id="hexo-configurations">
     window.config = {"hostname":"firsryfan.github.io","root":"/","language":"en","path":"search.json"};
-    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["AC/WA/RE/TLE"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"atom-one-dark"},"font":{"enable":true,"family":"Cascadia Mono","url":null}},"toc":{"enable":true,"max_depth":6,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#91A264","secondary":"C68188","default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":true,"family":null,"url":null},"english":{"enable":true,"family":null,"url":null},"title":{"enable":true,"family":null,"url":null}},"content_max_width":"1600px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":null},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"static","image":{"light":"/images/light_mode.jpg","dark":"/images/dark_mode.jpg"},"title":"Zone of Algorithm","subtitle":{"text":["乌云阻拦，明月涌河湾，他起身独立向荒原。"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":false,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"center","links":{"github":"https://github.com/FirsryFan","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#A22D60","right":"#1D3C10","transparency":25},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"cloud"},"home":{"sidebar":{"enable":true,"position":"right","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2025/8/5 11:45:14"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["AC/WA/RE/TLE"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"atom-one-dark"},"font":{"enable":true,"family":"Cascadia Mono","url":null}},"toc":{"enable":true,"max_depth":6,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#91A264","secondary":"C68188","default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":true,"family":null,"url":null},"english":{"enable":true,"family":"Chillax","url":null},"title":{"enable":true,"family":"Chillax","url":null}},"content_max_width":"1600px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":null},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"static","image":{"light":"/images/light_mode.jpg","dark":"/images/dark_mode.jpg"},"title":"Zone of Algorithm","subtitle":{"text":["乌云阻拦，明月涌河湾，他起身独立向荒原。"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":false,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Chillax","url":null},"social_links":{"enable":false,"style":"center","links":{"github":"https://github.com/FirsryFan","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#A22D60","right":"#1D3C10","transparency":25},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"cloud"},"home":{"sidebar":{"enable":true,"position":"right","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2025/8/5 11:45:14"};
     window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     window.data = {"masonry":false};
   </script>
@@ -565,7 +567,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
@@ -592,7 +594,7 @@ mjx-container[display="true"] + br {
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">题解：P5391 [Cnoi2019] 青染之心</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">题解： 题解：P5391 [Cnoi2019] 青染之心</h1>
 			</div>
 			
 		</div>
@@ -620,8 +622,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-05 22:32:02</span>
-            <span class="mobile">2025-08-05 22:32:02</span>
+            <span class="desktop">2025-08-06 10:33:59</span>
+            <span class="mobile">2025-08-06 10:33:59</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -645,7 +647,17 @@ mjx-container[display="true"] + br {
                             <li>></li>
                         
                         <li>
-                            <a href="/categories/%E9%A2%98%E8%A7%A3/Difficulty-6/">Difficulty_6</a>&nbsp;
+                            <a href="/categories/%E9%A2%98%E8%A7%A3/OI/">OI</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E9%A2%98%E8%A7%A3/OI/Difficulty-6/">Difficulty_6</a>&nbsp;
                         </li>
                     
                     
@@ -740,14 +752,14 @@ mjx-container[display="true"] + br {
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> 题解：P5391 [Cnoi2019] 青染之心</li>
+        <li><strong>Title:</strong> 题解： 题解：P5391 [Cnoi2019] 青染之心</li>
         <li><strong>Author:</strong> Firsry</li>
         <li><strong>Created at
                 :</strong> 2025-08-05 22:29:37</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-05 22:32:02
+                    :</strong> 2025-08-06 10:33:59
             </li>
         
         <li>
@@ -845,7 +857,7 @@ mjx-container[display="true"] + br {
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
-		<div class="page-title">题解：P5391 [Cnoi2019] 青染之心</div>
+		<div class="page-title">题解： 题解：P5391 [Cnoi2019] 青染之心</div>
 		
 
 	</div>
