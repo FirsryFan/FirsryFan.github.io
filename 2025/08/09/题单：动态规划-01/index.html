@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Algorithm, Mathematics, Artificial_Intelligence">
+    
+    <meta name="author" content="Firsry">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://FirsryFan.github.io/2025/08/09/题单：动态规划-01/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题单：动态规划 01">
+<meta property="og:url" content="https://firsryfan.github.io/2025/08/09/%E9%A2%98%E5%8D%95%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-01/index.html">
+<meta property="og:site_name" content="Zone of Algorithm">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://firsryfan.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-08-09T14:08:57.000Z">
+<meta property="article:modified_time" content="2025-08-10T01:15:37.010Z">
+<meta property="article:author" content="Firsry">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="树形 DP">
+<meta property="article:tag" content="动态规划优化">
+<meta property="article:tag" content="单调性优化">
+<meta property="article:tag" content="单调队列">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://firsryfan.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#91A264">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            题单：动态规划 01 | Zone of Algorithm
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+        <link href="" rel="stylesheet">
+    
+    
+        <link href="" rel="stylesheet">
+    
+    
+    
+        <link href="" rel="stylesheet">
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"firsryfan.github.io","root":"/","language":"en","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["AC/WA/RE/TLE"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"atom-one-dark"},"font":{"enable":true,"family":"Cascadia Mono","url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#91A264","secondary":"#A22D60","default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":true,"family":".Heiti GB18030PUA","url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1600px","sidebar_width":"160px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":false,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":"乌云阻拦，明月涌河湾，他起身独立向荒原"},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/light_mode.jpg","dark":"/images/dark_mode.jpg"},"title":"Zone of Algorithm","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"3.2rem","subtitle_size":"1.6rem","line_height":1.2},"custom_font":{"enable":true,"family":".Heiti GB18030PUA","url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#A22D60","right":"#91A264","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-thin fa-house"},"Archives":{"path":"/archives","icon":"fa-thin fa-archive"},"categories":{"path":"/categories","icon":"fa-thin fa-folder"},"tags":{"path":"/tags","icon":"fa-thin fa-tags"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"cloud"},"home":{"sidebar":{"enable":true,"position":"right","first_item":"info","announcement":"Essence of Mathematics","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-thin fa-archive"},"Tags":{"path":"/tags","icon":"fa-thin fa-tags"},"Categories":{"path":"/categories","icon":"fa-thin fa-folder"},"Friends":{"path":"/links","icon":"fa-thin fa-users"}}},"article_date_format":"auto","excerpt_length":100,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2025/8/9 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+        
+<link rel="stylesheet" href="/fontawesome/thin.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        乌云阻拦，明月涌河湾，他起身独立向荒原
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Zone of Algorithm
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-thin fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-thin fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-thin fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags"
+                                        >
+                                    <i class="fa-thin fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-thin fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-thin fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-thin fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-thin fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-thin fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-thin fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/links"
+                        >
+                            <span>Friends</span>
+                            <i class="fa-thin fa-users fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">58</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">18</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">35</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">题单：动态规划 01</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/Che.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Firsry</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">AC/WA/RE/TLE</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-08-09 22:08:57</span>
+        <span class="mobile">2025-08-09 22:08:57</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-08-10 09:15:37</span>
+            <span class="mobile">2025-08-10 09:15:37</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E9%A2%98%E5%8D%95/">题单</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E9%A2%98%E5%8D%95/OI/">OI</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E9%A2%98%E5%8D%95/OI/Difficulty-5/">Difficulty_5</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%A0%91%E5%BD%A2-DP/">树形 DP</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E4%BC%98%E5%8C%96/">动态规划优化</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%8D%95%E8%B0%83%E6%80%A7%E4%BC%98%E5%8C%96/">单调性优化</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">单调队列</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>来源：2025/07/31 SDOI_2025</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> P2014 [CTSC1997] 选课</li>
+<li><input checked="" disabled="" type="checkbox"> P1273 有线电视网</li>
+<li><input checked="" disabled="" type="checkbox"> P2018 消息传递</li>
+<li><input checked="" disabled="" type="checkbox"> P2569 [SCOI2010] 股票交易</li>
+</ul>
+<h1 id="题单题解-Dynamic-Programming"><a href="#题单题解-Dynamic-Programming" class="headerlink" title="题单题解 Dynamic Programming"></a>题单题解 Dynamic Programming</h1><blockquote>
+<p>“动态规划并非一种编程技巧，而是一种思考复杂多阶段决策问题的数学方法。它利用最优子结构的性质，将大问题分解为一系列相互关联的子问 题，通过递归式的贝尔曼方程实现整体最优。” —— 理查德·贝尔曼</p>
+</blockquote>
+<h2 id="树形-DP"><a href="#树形-DP" class="headerlink" title="树形 DP"></a>树形 DP</h2><p>显然的，依赖关系呈现树形结构，而这类的通用思路就是依据子树进行阶段划分。</p>
+<p>由于树形结构，<code>dfs</code> 就是我们代码实现的方式，而状态转移就在回溯阶段。我们合并统计子树带来的结果，推出当前节点为根的子树的最优子结构，然后再传回上一级，最终传给整棵树的根。 这时，<code>f[root]</code> 就累积了对整棵树的统计。</p>
+<p>所以框架是一定的，这导致状态定义的一维就是限定在以 <code>i</code> 为根的子树内。最重要的还是状态的描述以及转移过程。由于树形结构的特殊依赖关系，状态的转移也可以会相对复杂。</p>
+<h3 id="P2014-CTSC1997-选课"><a href="#P2014-CTSC1997-选课" class="headerlink" title="P2014 [CTSC1997] 选课"></a>P2014 [CTSC1997] 选课</h3><ul>
+<li>建立源点，把森林无代价无收益地连起来，构成一棵树；</li>
+<li>题意理解，发现课程 <code>u</code> 是代价为 <code>1</code>，收益为 <code>s[u]</code> 的物品，背包容量是 <code>m</code>；</li>
+<li>给出定义，<code>f[u][cost]</code> 代表以 <code>u</code> 为根的子树内代价为 <code>cost</code> 的最大收益；</li>
+<li>处理边界，<code>f[u][1]</code> 显然的就是只选择自己，为 <code>s[u]</code>；</li>
+<li>考虑转移，<code>f[u][cost] = max(f[u][cost], f[u][cost - j] + f[v][j]</code>；</li>
+<li>修订细节：<ul>
+<li>对于 <code>u</code>，其更新顺序应该是 <code>cost</code> 从大到小，原理与 01 背包相同；</li>
+<li>对于 <code>v</code>，考虑 <code>j &lt; cost</code>，因为 <code>u</code> 必选，占用了一个名额；</li>
+</ul>
+</li>
+</ul>
+<p>这道题目就做完了，整个流程格式化，而且就是背包的模版。唯一的转移限制也很显然，是一个比较合适的【模版】树上背包。</p>
+<div class="code-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAXN = <span class="number">305</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAXM = <span class="number">305</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, m;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> edgeCount;</span><br><span class="line"><span class="type">int</span> head[MAXN], toNode[MAXN], nextEdge[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> siz[MAXN];</span><br><span class="line"><span class="type">int</span> f[MAXN][MAXM];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">read</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">addEdge</span><span class="params">(<span class="type">int</span> from, <span class="type">int</span> to)</span> </span>{</span><br><span class="line">    edgeCount++;</span><br><span class="line">    toNode[edgeCount] = to;</span><br><span class="line">    nextEdge[edgeCount] = head[from];</span><br><span class="line">    head[from] = edgeCount;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">dp</span><span class="params">(<span class="type">int</span> from)</span> </span>{</span><br><span class="line">    siz[from]++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = head[from]; i; i = nextEdge[i]) {</span><br><span class="line">        <span class="type">int</span> to = toNode[i];</span><br><span class="line">        <span class="built_in">dp</span>(to);</span><br><span class="line">        siz[from] += siz[to];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = m; j &gt;= <span class="number">0</span>; --j) {</span><br><span class="line">            <span class="type">int</span> assign = (from == <span class="number">0</span> ? j : j - <span class="number">1</span>);</span><br><span class="line">            assign = <span class="built_in">min</span>(assign, siz[to]);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">0</span>; k &lt;= assign; ++k)</span><br><span class="line">                f[from][j] = <span class="built_in">max</span>(f[from][j], f[from][j - k] + f[to][k]);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    n = <span class="built_in">read</span>(), m = <span class="built_in">read</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) {</span><br><span class="line">        <span class="built_in">addEdge</span>(<span class="built_in">read</span>(), i);</span><br><span class="line">        f[i][<span class="number">1</span>] = <span class="built_in">read</span>();</span><br><span class="line">    }</span><br><span class="line">    <span class="built_in">dp</span>(<span class="number">0</span>);</span><br><span class="line">    cout &lt;&lt; f[<span class="number">0</span>][m];</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="P1273-有线电视网"><a href="#P1273-有线电视网" class="headerlink" title="P1273 有线电视网"></a>P1273 有线电视网</h3><p>这个题输入相对复杂一点，细心处理即可。</p>
+<p>主要是对于问题的转化：</p>
+<blockquote>
+<p>使得有线电视网在不亏本的情况下使观看转播的用户尽可能多。</p>
+</blockquote>
+<p>这句话给的范围很宽，“不亏本的情况下”。我们考虑两个可能的情况 <code>S1, S2</code> ，他们都做到了“尽可能多”的用户，但是 <code>profit(S2) &gt; profit(S1)</code>，这时选择 <code>S2</code> 一定不会更劣。</p>
+<p>换句话说，对于一个给定的观看人数 <em>man</em>，如果存在一个解使得电视网不亏本，那么最大利润一定不亏本。</p>
+<p>所以我们就去找最大利润即可。</p>
+<p>以上内容对于所有的动态规划题目都是一样的，难度也都在这里，想清楚了就容易了。以下是格式化的流程：</p>
+<ul>
+<li><p><code>f[u][man]</code> 表示在以 <code>u</code> 为根的子树内让 <code>man</code> 个人观看的最大利润；（如果是亏损就是最小亏损，反正是金钱数量最大值）</p>
+</li>
+<li><p><code>f[u][man] = max(f[u][man], f[u][man - k] + f[v][k] + weight);</code>，这个转移显然是正确的，也是容易想到的，但是有一个时间复杂度的问题：枚举 <code>v</code> 是 的， 枚举 <em>k</em> 也是，总体上是 的，然而事实上是跑得飞快。</p>
+<blockquote>
+<p>这种做法的人还不赶快给出数据的人磕一个！Oπ</p>
+</blockquote>
+</li>
+</ul>
+<p>其他的没什么，下面是这种方法的代码：</p>
+<div class="code-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAXN = <span class="number">3005</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, m;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> edgeCount;</span><br><span class="line"><span class="type">int</span> head[MAXN], toNode[MAXN], nextEdge[MAXN];</span><br><span class="line"><span class="type">int</span> weight[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> siz[MAXN];</span><br><span class="line"><span class="type">int</span> money[MAXN];</span><br><span class="line"><span class="type">int</span> f[MAXN][MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">addEdge</span><span class="params">(<span class="type">int</span> from, <span class="type">int</span> to, <span class="type">int</span> w)</span> </span>{</span><br><span class="line">    edgeCount++;</span><br><span class="line">    toNode[edgeCount] = to;</span><br><span class="line">    weight[edgeCount] = w;</span><br><span class="line">    nextEdge[edgeCount] = head[from];</span><br><span class="line">    head[from] = edgeCount;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> from)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (from &gt; n - m) {</span><br><span class="line">        siz[from]++;</span><br><span class="line">        f[from][<span class="number">1</span>] = money[from];</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = head[from]; i; i = nextEdge[i]) {</span><br><span class="line">        <span class="type">int</span> to = toNode[i];</span><br><span class="line">        <span class="built_in">dfs</span>(to);</span><br><span class="line">        siz[from] += siz[to];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = siz[from]; j; --j)</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">0</span>; k &lt;= siz[to]; ++k)</span><br><span class="line">                f[from][j] = <span class="built_in">max</span>(f[from][j], f[to][k] + f[from][j - k] - weight[i]);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= (n - m); ++i) {</span><br><span class="line">        <span class="type">int</span> siz, to, w;</span><br><span class="line">        cin &gt;&gt; siz;</span><br><span class="line">        <span class="keyword">while</span> (siz--) {</span><br><span class="line">            cin &gt;&gt; to &gt;&gt; w;</span><br><span class="line">            <span class="built_in">addEdge</span>(i, to, w);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = (n - m + <span class="number">1</span>); i &lt;= n; ++i)</span><br><span class="line">        cin &gt;&gt; money[i];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; ++j)</span><br><span class="line">            f[i][j] = -INF;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = m; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">        <span class="keyword">if</span> (f[<span class="number">1</span>][i] &gt;= <span class="number">0</span>)</span><br><span class="line">            cout &lt;&lt; i, <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>那么显然的，饱受复杂度之扰和卡常出题人之苦的我们一定要找到一个时间复杂度正确的算法！（没错，这个问题在选课的超小数据量下被隐藏了，真是可恶。）</p>
+<p>思路就是后序遍历。这里蒟蒻不觉得可以写得比这篇题解更好，所以就贴个<a class="link" target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/kq00ov2b">链接<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，大家仔细阅读品鉴，并且重构自己的代码。</p>
+<p>这个方法好就好在他把树形结构打散了，用一种特殊的顺序，把以子树为单位合并这件事情转化到了序列上，同时是 <code>dfs</code> 序的通病：子树下标在一段区间内，所以还可以进行子树和非子树的 <code>siz</code> 跳转。（剖剖爱好者看后爽极）</p>
+<p>所以可以考虑重构一下以上两道题的代码，不过 T1 蒟蒻懒得重新整了，下面贴出 T2 的代码：</p>
+<p>不过可笑的是，应该是由于随机小数据，每次理论最差 操作还远远跑不满，这个复杂度正确的做法和原做法用时几乎一模一样。</p>
+<p>但是肯定有用到的时候……后序遍历法万岁！</p>
+<div class="code-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAXN = <span class="number">3005</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, m;</span><br><span class="line"><span class="type">int</span> mon[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> edgeCount;</span><br><span class="line"><span class="type">int</span> head[MAXN], toNode[MAXN], nextEdge[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> countDfn;</span><br><span class="line"><span class="type">int</span> siz[MAXN], ind[MAXN];</span><br><span class="line"><span class="type">int</span> f[MAXN][MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">read</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">addEdge</span><span class="params">(<span class="type">int</span> from, <span class="type">int</span> to)</span> </span>{</span><br><span class="line">    edgeCount++;</span><br><span class="line">    toNode[edgeCount] = to;</span><br><span class="line">    nextEdge[edgeCount] = head[from];</span><br><span class="line">    head[from] = edgeCount;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>{</span><br><span class="line">    n = <span class="built_in">read</span>(), m = <span class="built_in">read</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= (n - m); ++i) {</span><br><span class="line">        <span class="type">int</span> cnt = <span class="built_in">read</span>();</span><br><span class="line">        <span class="keyword">while</span> (cnt--) {</span><br><span class="line">            <span class="type">int</span> to = <span class="built_in">read</span>();</span><br><span class="line">            mon[to] = -<span class="built_in">read</span>();	<span class="comment">// 这里考虑边权下放点权</span></span><br><span class="line">            <span class="built_in">addEdge</span>(i, to);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = (n - m + <span class="number">1</span>); i &lt;= n; ++i)</span><br><span class="line">        mon[i] += <span class="built_in">read</span>();		<span class="comment">// 与刚刚下放的点权对冲</span></span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> from)</span> </span>{</span><br><span class="line">    siz[from]++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = head[from]; i; i = nextEdge[i]) {</span><br><span class="line">        <span class="type">int</span> to = toNode[i];</span><br><span class="line">        <span class="built_in">dfs</span>(to);</span><br><span class="line">        siz[from] += siz[to];</span><br><span class="line">    }</span><br><span class="line">    countDfn++;</span><br><span class="line">    ind[countDfn] = from;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="built_in">init</span>();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= countDfn; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; ++j)</span><br><span class="line">            f[i][j] = -INF;</span><br><span class="line">    <span class="comment">// 注意初始化 i = 0 也要赋值，因为被依赖了</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= countDfn; ++i) {</span><br><span class="line">        <span class="type">int</span> from = ind[i];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; ++j) {</span><br><span class="line">            <span class="keyword">if</span> (from &gt;= (n - m + <span class="number">1</span>))</span><br><span class="line">                f[i][j] = <span class="built_in">max</span>(f[i - <span class="number">1</span>][j - <span class="number">1</span>] + mon[from], f[i - siz[from]][j]);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                f[i][j] = <span class="built_in">max</span>(f[i - <span class="number">1</span>][j] + mon[from], f[i - siz[from]][j]);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = m; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">        <span class="keyword">if</span> (f[countDfn][i] &gt;= <span class="number">0</span>)</span><br><span class="line">            cout &lt;&lt; i, <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="P2018-消息传递"><a href="#P2018-消息传递" class="headerlink" title="P2018 消息传递"></a>P2018 消息传递</h3><p>这个题目比较奇怪，“每次传递一个”导致了其特殊性，这和普通的 Bfs 和树的重心就完全不同了。</p>
+<p>首先一些比较显然错误的贪心策略：最大的子树、度数最大的子树、等等。如果度数大，已经传递了的节点就可以在较长时间内持续做出贡献；如果子树大，那么大的在运行的同时还可以运行小的。所以单一的考虑是有问题的。</p>
+<p>回归到动态规划上来，我们要的是最优子结构，能够决定顺序的，一定是他们的结果，因为这代表了整个状态的贡献，而不是状态中的某一个特征。</p>
+<p>所以考虑计算出各个子树所用时间之后，按照所需时间从大到小进行传递，比较的贪心，但是贪得东西是有动态规划性的。</p>
+<p>格式化过程就不展示了，因为相似性过高，自己思考之后看代码也会很容易。</p>
+<p>下面是代码：</p>
+<div class="code-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAXN = <span class="number">1005</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> edgeCount;</span><br><span class="line"><span class="type">int</span> head[MAXN], toNode[MAXN &lt;&lt; <span class="number">1</span>], nextEdge[MAXN &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> f[MAXN];</span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; son;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> t = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">addEdge</span><span class="params">(<span class="type">int</span> from, <span class="type">int</span> to)</span> </span>{</span><br><span class="line">    edgeCount++;</span><br><span class="line">    toNode[edgeCount] = to;</span><br><span class="line">    nextEdge[edgeCount] = head[from];</span><br><span class="line">    head[from] = edgeCount;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> from, <span class="type">int</span> father)</span> </span>{</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = head[from]; i; i = nextEdge[i]) {</span><br><span class="line">        <span class="type">int</span> to = toNode[i];</span><br><span class="line">        <span class="keyword">if</span> (to != father)</span><br><span class="line">            <span class="built_in">dfs</span>(to, from);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = head[from]; i; i = nextEdge[i]) {</span><br><span class="line">        <span class="type">int</span> to = toNode[i];</span><br><span class="line">        <span class="keyword">if</span> (to != father)</span><br><span class="line">            son.<span class="built_in">push_back</span>(to);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (son.<span class="built_in">empty</span>())</span><br><span class="line">        <span class="keyword">return</span> f[from] = <span class="number">1</span>, <span class="built_in">void</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">sort</span>(son.<span class="built_in">begin</span>(), son.<span class="built_in">end</span>(), [](<span class="type">int</span> a, <span class="type">int</span> b) {</span><br><span class="line">        <span class="keyword">return</span> f[a] &gt; f[b];</span><br><span class="line">    });</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; son.<span class="built_in">size</span>(); ++i)</span><br><span class="line">        f[from] = <span class="built_in">max</span>(f[from], f[son[i]] + (<span class="type">int</span>)i + <span class="number">1</span>);</span><br><span class="line">    son.<span class="built_in">clear</span>();</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) {</span><br><span class="line">        son.<span class="built_in">clear</span>();</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line">        <span class="built_in">dfs</span>(i, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (t &gt; f[i]) {</span><br><span class="line">            ans.<span class="built_in">clear</span>();</span><br><span class="line">            t = f[i];</span><br><span class="line">            ans.<span class="built_in">push_back</span>(i);</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (t == f[i])</span><br><span class="line">            ans.<span class="built_in">push_back</span>(i);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; ++i) {</span><br><span class="line">        <span class="type">int</span> fat;</span><br><span class="line">        cin &gt;&gt; fat;</span><br><span class="line">        <span class="built_in">addEdge</span>(fat, i);</span><br><span class="line">        <span class="built_in">addEdge</span>(i, fat);</span><br><span class="line">    }</span><br><span class="line">    <span class="built_in">solve</span>();</span><br><span class="line">    cout &lt;&lt; t &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i : ans)</span><br><span class="line">        cout &lt;&lt; i &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="单调队列优化-DP"><a href="#单调队列优化-DP" class="headerlink" title="单调队列优化 DP"></a>单调队列优化 DP</h2><h3 id="P2569-股票交易"><a href="#P2569-股票交易" class="headerlink" title="P2569 股票交易"></a>P2569 股票交易</h3><h4 id="读题"><a href="#读题" class="headerlink" title="读题"></a>读题</h4><p>这个题目比较麻烦，因为涉及的参数比较多，我们慢慢看。</p>
+<ol>
+<li>是<strong>收益最大化</strong>问题，这个应该就是我们 <code>f[][]</code> 所<strong>保存</strong>的东西；</li>
+<li>有一条<strong>时间</strong>线，这个划分了<strong>阶段</strong>，因为每一天都有属于自己的参数，我们最终的询问也是第 <code>T</code> 天的值；</li>
+<li>有很多的<strong>限制</strong>，手上最多持有的股票、一次交易（一天之内）能交易的最大的量，这个限制了我们<strong>转移的路径</strong>，在代码中的体现可能就是循环的边界以及各种 <code>continue;</code></li>
+</ol>
+<h4 id="状态定义"><a href="#状态定义" class="headerlink" title="状态定义"></a>状态定义</h4><p>这个是很显然的，<code>f[i][j]</code> 表示经过前 <code>i</code> 天，且在第 <code>i</code> 天手上持有 <code>j</code> 个股票的最大利润，而我们求的就是 <code>f[T][j]</code> 中的最大值。</p>
+<h4 id="暴力转移"><a href="#暴力转移" class="headerlink" title="暴力转移"></a>暴力转移</h4><p>这一部分时首先要理解清晰的，包括题目中的含义，类似的用法以及在 <code>f</code> 表中数据的指向方式。</p>
+<p>我们状态之间分成“变”和“不变”两种传递方式：</p>
+<ol>
+<li>不变，这意味着我们的初始状态或者是上一次“变”带来的影响可以延续到后续的某一天；</li>
+<li>变，这个可能是买入股票<strong>使持有量增加</strong>，或者是卖出股票<strong>使持有量减少</strong>。从这里可以看出，我们并不能只看持有量就能分析过程，而是要<strong>分析买入和卖出</strong>，其转移的终点不过是通过初始状态和以上两种操作计算出来的位置罢了。</li>
+</ol>
+<p>所以 <code>f[day][now]</code> 可能的更新来源就有以下几个：</p>
+<ol>
+<li><code>f[day - 1][now]</code>，不变，<strong>和昨天一样</strong>；</li>
+<li><code>f[day - 1][k], k &lt; now</code>，变了，<strong>买入</strong>了一些（<code>now - k</code>）股票；</li>
+<li><code>f[day - 1][k], k &gt; now</code>，变了，<strong>卖出</strong>了一些股票；</li>
+</ol>
+<p>那有些同学就要问了：</p>
+<blockquote>
+<p>欸？之前的不是可以<strong>一直延续</strong>吗？你为什么只考虑了<strong>昨天</strong>（<code>day - 1</code>）？</p>
+</blockquote>
+<p>回想一下我们简化的完全背包的代码，它和 01 背包的区别在于费用维的<strong>遍历顺序</strong>。它是从小到大的：</p>
+<div class="code-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = cost[i]; j &lt;= m; ++j)</span><br><span class="line">        f[j] = <span class="built_in">max</span>(f[j], f[j - cost[i]] + val[i]);</span><br></pre></td></tr></table></figure></div>
+
+<p>这个导致了我们可以使用<strong>刚刚更新过的</strong>值再次加上 <code>val[i]</code> 继续得到新的值，<strong>隐式</strong>地让 <code>i</code> 物品被选取了多次。</p>
+<p>这里的道理也是一样，我们说有一种操作叫做“不变”，我们对于传递过来的东西不变，但是传递过来的东西也可以是<strong>前一个阶段不变过来的</strong>，所以我们可以只关注<strong>昨天</strong> <code>day - 1</code>。我们对于每个 <code>day</code> 中 <code>now</code> 只股票的情况，都看一遍 <code>day - 1</code>，看看从哪天怎么转过来是最好的即可（也就是找结果的最大值）。</p>
+<p>这个时候我们经过了很多思考，十分满足，觉得和正解近在咫尺，不过是 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="5.832ex" height="2.451ex" role="img" focusable="false" viewBox="0 -833.2 2577.6 1083.2"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(1152,0)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(633,363) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g></g><g data-mml-node="mo" transform="translate(2188.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container> 和 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="5.832ex" height="2.452ex" role="img" focusable="false" viewBox="0 -833.9 2577.6 1083.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(1152,0)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(633,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(2188.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container> 嘛 QAQ。</p>
+<h4 id="优化转移"><a href="#优化转移" class="headerlink" title="优化转移"></a>优化转移</h4><p>这部分我们用表格图进行演示，并且讲清楚单调队列的使用方式。</p>
+<h5 id="窗口操作"><a href="#窗口操作" class="headerlink" title="窗口操作"></a>窗口操作</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/pfo430ni.png" alt="img"></p>
+<p>如上图所示，假如我们考虑<strong>第三天</strong>手上留有<strong>三只</strong>股票的情形。</p>
+<ul>
+<li>紫色箭头就是“不变”的策略，我们直接<strong>继承</strong>第二天手上就有的 <code>3</code> 只股票也行；</li>
+<li>注意到右边的小字，我们一天之内只能买卖最多 <code>3</code> 只股票，这意味着蓝色箭头是可行的，他们买的股票数量都不超过三只；同时橘色箭头也是可行的，因为卖了<strong>不超过 <code>3</code> 只</strong>。但是我们不能从 <code>day 2, 7</code> 的情况转移过来，因为它需要卖掉 <strong><code>4</code> 只</strong>股票才能达成我们期望的状态，而这是不可行的，这就是<strong>所谓路径被限制</strong>了。</li>
+<li></li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/vsh2g87p.png" alt="img"></p>
+<p>这是两个对于 <code>day 1, day 2</code> 但是不同只股票的情况，先只考虑买入。</p>
+<p>绿色的点是末状态，橘色的点是可以转移到绿色点的状态，容易发现这是一个<strong>窗口</strong>，长度为三（当然可以小于三，比如只有一只股票的时候）。这意味着整个在更新的过程中，我们不必要把 <code>day - 1</code> 重看一遍，我们作为<strong>近视眼</strong>，在 <code>now + 1</code> 能够<strong>多看到</strong>的，就是 <code>day - 1</code> 的 <code>now</code> 位置，而<strong>丢掉</strong>的就是 <code>now - lb</code> 位置。</p>
+<p>这个对于卖出是一个一模一样的过程，唯一的差别在于<strong>顺序</strong>，因为卖出的窗口向下长的，所以<strong>从下向上</strong>考虑，不再赘述。</p>
+<p>我们每讨论完一个 <code>now</code>，就对应的丢掉 <code>day - 1</code> 的窗口末端，把 <code>day - 1, now</code> 加入考虑。如果，我们有一种数据结构，在完成这次更新之后还能立刻告诉我窗口内部转移结果最大值，这样子扫描过程就变成 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="4.844ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2141 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(1752,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container> 的了！</p>
+<h5 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h5><p>在经典的【模版】题目“滑动窗口”中，我们就是需要维护一个这样的数据结构。</p>
+<p>在这里，我们希望找到限制以内的最优解，而且当<strong>当前最优解掉到外面去</strong>的时候，我们还知道谁<strong>顶上来</strong>。俗话说的好：</p>
+<blockquote>
+<p>如果一个选手年纪比你小而且考得比你好，你就没有希望了。</p>
+</blockquote>
+<p>这句话的意思就是，他会在你的近视窗口范围内<strong>更久</strong>，给更多的未处理的点带来贡献，而且<strong>贡献还比你大</strong>，你就不会被考虑了。相信大家现在都理解为什么可以舍弃掉一部分了。</p>
+<p>所以单调队列就是这样的，它是一个队列，内部具有单调性。一个后加入的值 <code>cur</code> 如果比先加入的值 <code>pre</code> 要大，那 <code>pre</code> 就可以滚出去了，我们不需要它，<strong>它没有用处</strong>，<code>cur</code> 可以完美地代替它的位置，而且做得比它还好。</p>
+<p>我们<strong>一直这样让吊车尾滚出去</strong>，直到 <code>cur</code> 遇上了一个比它厉害的大牛 <code>orz</code>，在目前，我们的数据还是由 <code>orz</code> 以及 <code>orz</code> 前面的神犇<strong>更新</strong>的，但是当大牛和神犇退去的时候，就到了 <code>cur</code> <strong>顶上来</strong>的时候了。</p>
+<p>这就是我对单调队列的简单介绍，如果觉得有趣但是没有用，那就去看那个模版题的题解吧。</p>
+<h5 id="我们要维护什么？"><a href="#我们要维护什么？" class="headerlink" title="我们要维护什么？"></a>我们要维护什么？</h5><p>注意到状态转移方程：</p>
+<ul>
+<li><code>f[day][now] = max(f[pre][k] - pb[day] * (now - k));</code>，这是买入；</li>
+<li><code>f[day][now] = max(f[pre][k] + ps[day] * (k - now));</code>，这是卖出；</li>
+</ul>
+<p>学过分数线的同学都知道，分离常数或者参变分离是很有用的，我们维护数据也是如此。对于一个给定的 <code>day, now, pre</code>，可以认为只有 <code>k</code> 一个变量。所以我们把含有 <code>k</code> 的部分提出来：</p>
+<ul>
+<li><code>f[pre][k] + pb[day] * k</code>，这是买入；</li>
+<li><code>f[pre][k] + ps[day] * k</code>，这是卖出；</li>
+</ul>
+<p>我们只需要搞一个单调队列，把这些值和下标丢进去，然后按照标准程序走就行了：</p>
+<ul>
+<li>检查是否为空和队头是否合法（在考虑范围内）；</li>
+<li>用队头更新当前值；</li>
+<li>让实力不足的吊车尾滚出去；</li>
+<li>把当前新考虑得值加到里面去；</li>
+</ul>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><div class="code-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAXN = <span class="number">2005</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> T, MaxP, W;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> pb[MAXN], ps[MAXN];</span><br><span class="line"><span class="type">int</span> lb[MAXN], ls[MAXN];</span><br><span class="line"></span><br><span class="line">deque&lt;<span class="type">int</span>&gt; val, ind;</span><br><span class="line"><span class="type">int</span> f[MAXN][MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>{</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">    cin &gt;&gt; T &gt;&gt; MaxP &gt;&gt; W;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= T; ++i)</span><br><span class="line">        cin &gt;&gt; pb[i] &gt;&gt; ps[i] &gt;&gt; lb[i] &gt;&gt; ls[i];</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="built_in">init</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= T; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= MaxP; ++j)</span><br><span class="line">            f[i][j] = -INF;</span><br><span class="line">    f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> day = <span class="number">1</span>; day &lt;= T; ++day) {</span><br><span class="line">        <span class="type">int</span> pre = <span class="built_in">max</span>(<span class="number">0</span>, day - W - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*--- transform through buy ---*/</span></span><br><span class="line">        val.<span class="built_in">clear</span>();</span><br><span class="line">        ind.<span class="built_in">clear</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> now = <span class="number">0</span>; now &lt;= MaxP; ++now) {</span><br><span class="line">            f[day][now] = <span class="built_in">max</span>(f[day][now], f[day - <span class="number">1</span>][now]);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (!ind.<span class="built_in">empty</span>() &amp;&amp; ind.<span class="built_in">front</span>() &lt;= now - lb[day] - <span class="number">1</span>) {</span><br><span class="line">                ind.<span class="built_in">pop_front</span>();</span><br><span class="line">                val.<span class="built_in">pop_front</span>();</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!ind.<span class="built_in">empty</span>())</span><br><span class="line">                f[day][now] = <span class="built_in">max</span>(f[day][now], val.<span class="built_in">front</span>() - pb[day] * now);</span><br><span class="line"></span><br><span class="line">            <span class="type">int</span> curVal = f[pre][now] + pb[day] * now;</span><br><span class="line">            <span class="keyword">while</span> (!ind.<span class="built_in">empty</span>() &amp;&amp; val.<span class="built_in">back</span>() &lt;= curVal) {</span><br><span class="line">                ind.<span class="built_in">pop_back</span>();</span><br><span class="line">                val.<span class="built_in">pop_back</span>();</span><br><span class="line">            }</span><br><span class="line">            val.<span class="built_in">push_back</span>(curVal);</span><br><span class="line">            ind.<span class="built_in">push_back</span>(now);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*--- transform through sell ---*/</span></span><br><span class="line">        <span class="keyword">if</span> (pre != <span class="number">0</span>) {</span><br><span class="line">            val.<span class="built_in">clear</span>();</span><br><span class="line">            ind.<span class="built_in">clear</span>();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> now = MaxP; now &gt;= <span class="number">0</span>; --now) {</span><br><span class="line">                f[day][now] = <span class="built_in">max</span>(f[day][now], f[day - <span class="number">1</span>][now]);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">while</span> (!ind.<span class="built_in">empty</span>() &amp;&amp; ind.<span class="built_in">front</span>() &gt;= now + ls[day] + <span class="number">1</span>) {</span><br><span class="line">                    ind.<span class="built_in">pop_front</span>();</span><br><span class="line">                    val.<span class="built_in">pop_front</span>();</span><br><span class="line">                }</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (!ind.<span class="built_in">empty</span>())</span><br><span class="line">                    f[day][now] = <span class="built_in">max</span>(f[day][now], val.<span class="built_in">front</span>() - ps[day] * now);</span><br><span class="line"></span><br><span class="line">                <span class="type">int</span> curVal = f[pre][now] + ps[day] * now;</span><br><span class="line">                <span class="keyword">while</span> (!ind.<span class="built_in">empty</span>() &amp;&amp; val.<span class="built_in">back</span>() &lt;= curVal) {</span><br><span class="line">                    ind.<span class="built_in">pop_back</span>();</span><br><span class="line">                    val.<span class="built_in">pop_back</span>();</span><br><span class="line">                }</span><br><span class="line">                val.<span class="built_in">push_back</span>(curVal);</span><br><span class="line">                ind.<span class="built_in">push_back</span>(now);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= MaxP; ++i)</span><br><span class="line">        ans = <span class="built_in">max</span>(ans, f[T][i]);</span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 题单：动态规划 01</li>
+        <li><strong>Author:</strong> Firsry</li>
+        <li><strong>Created at
+                :</strong> 2025-08-09 22:08:57</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-08-10 09:15:37
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://firsryfan.github.io/2025/08/09/题单：动态规划-01/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E6%A0%91%E5%BD%A2-DP/">#树形 DP</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E4%BC%98%E5%8C%96/">#动态规划优化</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%8D%95%E8%B0%83%E6%80%A7%E4%BC%98%E5%8C%96/">#单调性优化</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">#单调队列</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/08/09/%E9%A2%98%E5%8D%95%EF%BC%9A%E8%BF%9E%E9%80%9A%E6%80%A7/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">题单：连通性</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/08/09/%E9%A2%98%E5%8D%95%EF%BC%9A%E5%B7%AE%E5%88%86/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">题单：差分</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">题单：动态规划 01</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E5%8D%95%E9%A2%98%E8%A7%A3-Dynamic-Programming"><span class="nav-text">题单题解 Dynamic Programming</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%91%E5%BD%A2-DP"><span class="nav-text">树形 DP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#P2014-CTSC1997-%E9%80%89%E8%AF%BE"><span class="nav-text">P2014 [CTSC1997] 选课</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91"><span class="nav-text">P1273 有线电视网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P2018-%E6%B6%88%E6%81%AF%E4%BC%A0%E9%80%92"><span class="nav-text">P2018 消息传递</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96-DP"><span class="nav-text">单调队列优化 DP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#P2569-%E8%82%A1%E7%A5%A8%E4%BA%A4%E6%98%93"><span class="nav-text">P2569 股票交易</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BB%E9%A2%98"><span class="nav-text">读题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E5%AE%9A%E4%B9%89"><span class="nav-text">状态定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9A%B4%E5%8A%9B%E8%BD%AC%E7%A7%BB"><span class="nav-text">暴力转移</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E8%BD%AC%E7%A7%BB"><span class="nav-text">优化转移</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E6%93%8D%E4%BD%9C"><span class="nav-text">窗口操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97"><span class="nav-text">单调队列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E8%A6%81%E7%BB%B4%E6%8A%A4%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">我们要维护什么？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-text">代码</span></a></li></ol></li></ol></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+            <div class="customize-info my-1">没有一个大牛天生就会所有的算法</div>
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2025</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Firsry</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        35 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+    
+<script src="/js/build/libs/minimasonry.min.js"></script>
+
+    
+<script src="/js/build/plugins/masonry.js" type="module"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>

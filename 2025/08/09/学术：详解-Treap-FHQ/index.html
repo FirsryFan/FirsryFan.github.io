@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Algorithm, Mathematics, Artificial_Intelligence">
+    
+    <meta name="author" content="Firsry">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://FirsryFan.github.io/2025/08/09/学术：详解-treap-fhq/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学术：详解 Treap &amp; FHQ">
+<meta property="og:url" content="https://firsryfan.github.io/2025/08/09/%E5%AD%A6%E6%9C%AF%EF%BC%9A%E8%AF%A6%E8%A7%A3-Treap-FHQ/index.html">
+<meta property="og:site_name" content="Zone of Algorithm">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://firsryfan.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-08-09T13:46:51.000Z">
+<meta property="article:modified_time" content="2025-08-10T01:27:24.786Z">
+<meta property="article:author" content="Firsry">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="Treap">
+<meta property="article:tag" content="FHQ Treap">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://firsryfan.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#91A264">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            学术：详解 Treap &amp; FHQ | Zone of Algorithm
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+        <link href="" rel="stylesheet">
+    
+    
+        <link href="" rel="stylesheet">
+    
+    
+    
+        <link href="" rel="stylesheet">
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"firsryfan.github.io","root":"/","language":"en","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["AC/WA/RE/TLE"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"atom-one-dark"},"font":{"enable":true,"family":"Cascadia Mono","url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#91A264","secondary":"#A22D60","default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":true,"family":".Heiti GB18030PUA","url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1600px","sidebar_width":"160px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":false,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":"乌云阻拦，明月涌河湾，他起身独立向荒原"},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/light_mode.jpg","dark":"/images/dark_mode.jpg"},"title":"Zone of Algorithm","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"3.2rem","subtitle_size":"1.6rem","line_height":1.2},"custom_font":{"enable":true,"family":".Heiti GB18030PUA","url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#A22D60","right":"#91A264","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-thin fa-house"},"Archives":{"path":"/archives","icon":"fa-thin fa-archive"},"categories":{"path":"/categories","icon":"fa-thin fa-folder"},"tags":{"path":"/tags","icon":"fa-thin fa-tags"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"cloud"},"home":{"sidebar":{"enable":true,"position":"right","first_item":"info","announcement":"Essence of Mathematics","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-thin fa-archive"},"Tags":{"path":"/tags","icon":"fa-thin fa-tags"},"Categories":{"path":"/categories","icon":"fa-thin fa-folder"},"Friends":{"path":"/links","icon":"fa-thin fa-users"}}},"article_date_format":"auto","excerpt_length":100,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2025/8/9 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+        
+<link rel="stylesheet" href="/fontawesome/thin.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        乌云阻拦，明月涌河湾，他起身独立向荒原
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Zone of Algorithm
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-thin fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-thin fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-thin fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags"
+                                        >
+                                    <i class="fa-thin fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-thin fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-thin fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-thin fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-thin fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-thin fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-thin fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/links"
+                        >
+                            <span>Friends</span>
+                            <i class="fa-thin fa-users fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">58</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">18</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">35</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">学术：详解 Treap &amp; FHQ</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/Che.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Firsry</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">AC/WA/RE/TLE</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-08-09 21:46:51</span>
+        <span class="mobile">2025-08-09 21:46:51</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-08-10 09:27:24</span>
+            <span class="mobile">2025-08-10 09:27:24</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%AD%A6%E6%9C%AF/">学术</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E5%AD%A6%E6%9C%AF/OI/">OI</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E5%AD%A6%E6%9C%AF/OI/Difficulty-5/">Difficulty_5</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Treap/">Treap</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/FHQ-Treap/">FHQ Treap</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>BST 和 Heap 都是两个可以有很多等效结构的数据结构，这种灵活性让他们具有了同时维护的可能性。而 Treap 就是这样一种结合的产物。</p>
+<p>Treap 有一个很方便的点：他完全分化了职责，数据处理交给 BST，平衡性交给 Heap，所以只要在平衡树旋转或者依据路径拆合的过程中，注意一下 <code>key</code> 值带来的顺序即可。所以这些操作不管有多么花哨，只要保证了堆性质，就可以保证一定的平衡性，而不用担心退化问题。</p>
+<p>本文涉及的 <code>zig, zag, split, merge</code> 操作都是 <code>Cpp</code> 语言之美的体现，传参传地址和灵活的递归让代码实现非常简洁，同时让初学者脑壳痛，难以理清楚具体的运行过程，下面进行解析。</p>
+<h2 id="Treap-的旋转"><a href="#Treap-的旋转" class="headerlink" title="Treap 的旋转"></a>Treap 的旋转</h2><p>我们说对节点 <code>fat</code> 进行右旋，指的是把 <code>fat</code> 向右下方按到下面去，而把他的儿子 <code>cur</code> 提起来，放在自己的位置，下面是代码以及图解过程。</p>
+<p>关于左旋……右旋都会了，左旋就对代码异或一下，原理也是一样，不多废话。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>请注意这份代码其实并不简洁，很多地方为了方便理解而特殊设置，比如临时变量 <code>fat</code> 和 <code>ancSon</code> 这么奇怪的变量名，所以请理解之后根据自己的习惯打磨属于自己的板子。</p>
+<div class="code-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">zig</span><span class="params">(<span class="type">int</span>&amp; ancSon)</span> </span>{</span><br><span class="line">  <span class="type">int</span> fat = ancSon;</span><br><span class="line">  <span class="type">int</span> cur = <span class="built_in">lson</span>(fat);</span><br><span class="line">    <span class="built_in">lson</span>(fat) = <span class="built_in">rson</span>(cur);</span><br><span class="line">    <span class="built_in">rson</span>(cur) = fat;</span><br><span class="line">    <span class="built_in">pushUp</span>(fat);</span><br><span class="line">    <span class="built_in">pushUp</span>(cur);</span><br><span class="line">    ancSon = cur;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><p>这是原来的树的形态（其他子树，不涉及改动，也不好看，就没有显示）：<img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/62oparsq.png" alt="img"></p>
+<p><code>lson(fat) = rson(cur)</code>，安排 <code>rson</code> 的后事，让 <code>fat</code> 来接管，满足 BST 性质，且让父子关系改变（把这种中间状态映射到父子之类的人人关系上还是太抽象了）。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/ll12c5rw.png" alt="img"></p>
+<p><code>rson(cur) = fat</code>，注意 <code>rson</code> 后改动，不然原本的 <code>rson</code> 就没人接管，被丢掉了。这个时候已经看到 <code>fat, cur</code> 已经构建成了反的父子关系。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/ccavxg45.png" alt="img"></p>
+<p>不过与 <code>fat</code> 产生关系的还有 <code>fat(fat)</code>，也就是 <code>anc</code>。</p>
+<p>这一点是比较不好从代码层面上理解的，所以这里我把传参的名字改成了 <code>ancSon</code>。虽然逻辑上和 <code>fat</code> 是一个东西，但是在存储上完全不同。<code>ancSon = cur</code> 的意思就是让来自 <code>anc</code> 的指针指向 <code>cur</code>，所以在后文 FHQ 的 <code>split</code> 操作时，我愿意把它命名为 <code>link</code>。不过熟悉之后就没有写成这样的必要了。</p>
+<p>处理了这个，逻辑上就完善了，整理一下可视化就是最后的样子。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/djkypclj.png" alt="img"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/s304es1v.png" alt="img"></p>
+<h2 id="FHQ-的-Split-Merge"><a href="#FHQ-的-Split-Merge" class="headerlink" title="FHQ 的 Split & Merge"></a>FHQ 的 Split &amp; Merge</h2><h3 id="Split"><a href="#Split" class="headerlink" title="Split"></a>Split</h3><div class="code-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">split</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> v, <span class="type">int</span>&amp; linkA, <span class="type">int</span>&amp; linkB)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (p == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> linkA = linkB = <span class="number">0</span>, <span class="built_in">void</span>();</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">val</span>(p) &lt;= v) {</span><br><span class="line">        linkA = p;</span><br><span class="line">        <span class="built_in">split</span>(<span class="built_in">rsn</span>(p), v, <span class="built_in">rsn</span>(p), linkB);</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        linkB = p;</span><br><span class="line">        <span class="built_in">split</span>(<span class="built_in">lsn</span>(p), v, linkA, <span class="built_in">lsn</span>(p));</span><br><span class="line">    }</span><br><span class="line">    <span class="built_in">pushUp</span>(p);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>先说 <code>Split</code>，祭上这个上课时 why 的手绘图，而我们照样去 <code>split(13)</code>。</p>
+<p>接下来是视觉盛宴，请欣赏（不要在意作图的时候一些小细节）。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/3u35fzd1.png" alt="img"></p>
+<p>我们首先创建 <code>linkA, linkB</code>，这个时候都还是初始的，也就是 <code>split</code> 函数当中创建的变量。</p>
+<p>我们发现 <code>10 &lt; 13</code>，于是让 <code>linkA</code> 为 <code>10</code> 节点。<img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/slq80ae1.png" alt="img"></p>
+<p>接下来递归调用下一层，此时传入的函数参数 <code>linkA</code> 实际上是 <code>10</code> 节点的右儿子，这意味着下图的关系：<code>10</code> 的右儿子处于待定状态，而不再是原来的 <code>14</code> 节点。这个时候，我们可以保证 <code>10</code> 以及其左子树一定是小于 <code>13</code> 的，但是其右子树仍然有小于 <code>13</code> 节点存在的可能性，所以继续向右寻找。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">split(rson(p), v, rson(p), linkB)</span><br></pre></td></tr></table></figure></div>
+
+<p>请注意，后续操作中有赋值语句更改 <code>rson(p)</code>，所以逻辑上 <code>10, 14</code> 处于断开状态，但是存储上，调用的时候的第一位 <code>rson(p)</code> 仍然是 <code>14</code> 节点。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/76tipfs3.png" alt="img"></p>
+<p>同理，当我们向右继续寻找的时候，发现 <code>14 &gt; 13</code>，于是让 <code>linkB</code> 指向 <code>14</code> 节点，然后向不确定的左子树继续寻找。<img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/2he3mu2a.png" alt="img"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/jdm3hi0m.png" alt="img"></p>
+<p>发现 <code>12 &lt; 13</code>，这意味着我们的传参 <code>linkA</code>，其本质是 <code>rson(10 节点)</code>，要进行赋值语句了。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">linkA = p;</span><br></pre></td></tr></table></figure></div>
+
+<p>这就是下面这一步 <code>linkA</code> 指向 <code>12</code> 节点所体现的。其余的操作一致，自行理解，不再赘述。<img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/1j7fq35g.png" alt="img"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/4rnwqj6n.png" alt="img"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/75hnpx6j.png" alt="img"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/qbk6k3kw.png" alt="img"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/ffisjk30.png" alt="img"></p>
+<p>在这里我们继续向 <code>13.5</code> 的左子树走下去，发现 <code>p == 0</code>，意味着两棵树已经被完全分开了。我们每次借助 <code>linkA, linkB</code> 的传承，每一步都拆掉了一条边。在走完 <code>10 -&gt; 14 -&gt; 12 -&gt; 13 -&gt; 13.5</code> 的一条根到叶子的路径之后，我们就成功用 <em>O</em>(log<em>N</em>) 的时间复杂度把整棵树劈开了。此时，<code>linkA, linkB</code> 就指向原来留存的空节点 <code>0</code> 即可。<img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/543e7n95.png" alt="img"></p>
+<p>可视化整理一下就是这个样子，很好看。根据上文，沿着一条路径剖开，其相对位置是保持不变的，所以 Tree 性质和 Heap 性质都没有被破坏掉，是非常完美的一个处理平衡树的思路。（小蒟蒻本以为旋转就是灵活性的极限了，没想到还有狠人）<img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/881fbak3.png" alt="img"></p>
+<h3 id="Merge"><a href="#Merge" class="headerlink" title="Merge"></a>Merge</h3><p>关于 Merge，其实也就好理解了。这其实就是一个争儿子的过程。</p>
+<div class="code-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">merge</span><span class="params">(<span class="type">int</span> linkA, <span class="type">int</span> linkB)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (!linkA || !linkB)</span><br><span class="line">        <span class="keyword">return</span> linkA + linkB;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">key</span>(linkA) &gt; <span class="built_in">key</span>(linkB)) {</span><br><span class="line">        <span class="built_in">rsn</span>(linkA) = <span class="built_in">merge</span>(<span class="built_in">rsn</span>(linkA), linkB);</span><br><span class="line">        <span class="built_in">pushUp</span>(linkA);</span><br><span class="line">        <span class="keyword">return</span> linkA;</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        <span class="built_in">lsn</span>(linkB) = <span class="built_in">merge</span>(linkA, <span class="built_in">lsn</span>(linkB));</span><br><span class="line">        <span class="built_in">pushUp</span>(linkB);</span><br><span class="line">        <span class="keyword">return</span> linkB;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>这里假设 <code>val(A) &lt; val(B), key(A) &gt; key(B)</code>。</p>
+<p>考虑对 <code>rtA, rtB</code> 进行合并。首先根据 <code>key</code> 值，<code>rtA</code> 肯定是父亲。那么问题就是合并之后 <code>rtA</code> 有两个可能的右儿子：<code>rson, rtB</code>，因为都满足 Tree 性质和 Heap 性质。所以怎么办呢，要考虑对 <code>rson, rtB</code> 进行合并。</p>
+<p>容易发现是递归处理的，因为在缝合路径上都会存在多了一个儿子的问题，直到到达叶子节点，那个时候就是我们的决策边界。我们只需要 <code>return</code> 一下到底谁才是最后的根，随后其他节点依次根据下方传来的判断更新即可。容易发现还是一个根到叶子的路径，仍然是 <em>O</em>(log<em>n</em>) 的复杂度。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://cdn.luogu.com.cn/upload/image_hosting/z4rrxp8e.png" alt="img"></p>
+<p>希望读完以后能够让大家有更深刻的理解。以上，感谢。</p>
+<p>update：</p>
+<p>由于 <code>graph editor</code> 的灵活性，在 <code>linkA</code> 接到 <code>13</code> 节点下方是，应该是右儿子。（它自己飘到左边去了）</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 学术：详解 Treap &amp; FHQ</li>
+        <li><strong>Author:</strong> Firsry</li>
+        <li><strong>Created at
+                :</strong> 2025-08-09 21:46:51</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-08-10 09:27:24
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://firsryfan.github.io/2025/08/09/学术：详解-Treap-FHQ/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">#数据结构</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Treap/">#Treap</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/FHQ-Treap/">#FHQ Treap</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/08/09/%E9%A2%98%E8%A7%A3%EF%BC%9AP13594-%E3%80%8EGTOI-1A%E3%80%8FBath/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">题解：P13594 『GTOI - 1A』Bath</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+		</div>
+		
+
+
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">学术：详解 Treap &amp; FHQ</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Treap-%E7%9A%84%E6%97%8B%E8%BD%AC"><span class="nav-text">Treap 的旋转</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E8%A7%A3"><span class="nav-text">图解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FHQ-%E7%9A%84-Split-Merge"><span class="nav-text">FHQ 的 Split &amp; Merge</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Split"><span class="nav-text">Split</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Merge"><span class="nav-text">Merge</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+            <div class="customize-info my-1">没有一个大牛天生就会所有的算法</div>
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2025</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Firsry</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        35 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+    
+<script src="/js/build/libs/minimasonry.min.js"></script>
+
+    
+<script src="/js/build/plugins/masonry.js" type="module"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
