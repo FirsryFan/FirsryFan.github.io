@@ -777,11 +777,11 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">31</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">39</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">46</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -810,28 +810,27 @@ mjx-container[display="true"] + br {
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2025/08/10/%E9%A2%98%E8%A7%A3%EF%BC%9AP13492-%E3%80%90MX-X14-T2%E3%80%91%E5%8F%8D%E8%BD%AC%E6%97%B6%E5%85%89/">
-                            题解：P13492 【MX-X14-T2】反转时光
+                        <a href="/2025/08/11/%E9%A2%98%E8%A7%A3%EF%BC%9AB3903-NICA-3-%E6%98%9F%E7%A9%BA%EF%BC%88Easy-Version%EF%BC%89/">
+                            B3903 [NICA #3] 星空（Easy Version）
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            注意到与单调递增子段数量有关；
-注意到 k = 3 的时候可以把序列分成左右无关段和中间反转段；
-注意到冒泡排序就是中间反转段为  长度的算法；
-所以 ans = min(cnt, 3)。
+                            题目要求如下：由于  不重复且为 ，则有：考虑让最大值满足“相邻相加不大于 ”即可，设有  个数字满足，分类讨论如下：
 
+，邻位有  种选择，剩余  位全排列；
+，邻位分别有  种选择，剩余  ...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun Aug 10 2025 09:07:51 GMT+0800">
+            <span class="home-article-date" data-date="Mon Aug 11 2025 21:52:23 GMT+0800">
                 
-                    2025-08-10
+                    2025-08-11
                 
             </span>
         </span>
@@ -864,7 +863,7 @@ mjx-container[display="true"] + br {
                             <li>></li>
                         
                         <li>
-                            <a href="/categories/%E9%A2%98%E8%A7%A3/OI/Difficulty-2/">Difficulty_2</a>&nbsp;
+                            <a href="/categories/%E9%A2%98%E8%A7%A3/OI/Difficulty-3/">Difficulty_3</a>&nbsp;
                         </li>
                     
                     
@@ -879,17 +878,12 @@ mjx-container[display="true"] + br {
                     
                         <li>
                             
-                            <a href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/">基础算法</a>&nbsp;
+                            <a href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
                         </li>
                     
                         <li>
                             | 
-                            <a href="/tags/Ad-hoc/">Ad-hoc</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/">冒泡排序</a>&nbsp;
+                            <a href="/tags/%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0/">组合计数</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -897,7 +891,7 @@ mjx-container[display="true"] + br {
         
     </div>
 
-    <a href="/2025/08/10/%E9%A2%98%E8%A7%A3%EF%BC%9AP13492-%E3%80%90MX-X14-T2%E3%80%91%E5%8F%8D%E8%BD%AC%E6%97%B6%E5%85%89/">Read more<span class="seo-reader-text">题解：P13492 【MX-X14-T2】反转时光</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/08/11/%E9%A2%98%E8%A7%A3%EF%BC%9AB3903-NICA-3-%E6%98%9F%E7%A9%BA%EF%BC%88Easy-Version%EF%BC%89/">Read more<span class="seo-reader-text">B3903 [NICA #3] 星空（Easy Version）</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -912,25 +906,29 @@ mjx-container[display="true"] + br {
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2025/08/10/%E9%A2%98%E8%A7%A3%EF%BC%9AP10936-%E5%AF%BC%E5%BC%B9%E9%98%B2%E5%BE%A1%E5%A1%94/">
-                            题解：P10936 导弹防御塔
+                        <a href="/2025/08/11/%E9%A2%98%E5%8D%95%EF%BC%9A%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0-01/">
+                            题单：组合计数 01
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            为什么是二分图？注意到一个小怪会被一个导弹秒了，但是一个防御塔是可以输出多枚导弹的，这个时候一一对应的关系被隐藏了，本质上其实是导弹和小怪的二分图，而攻击问题就转化成了匹配问题。
-怎么描述问题？...
+                            来源：个人
+
+ B4031 [语言月赛 202409] 始终
+ B4185 [中山市赛 2024/科大国创杯小学组 2023] 倍数子串/子串
+ P10672 【MX-S1-T1】 壁垒
+ P1...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun Aug 10 2025 09:05:37 GMT+0800">
+            <span class="home-article-date" data-date="Mon Aug 11 2025 21:16:16 GMT+0800">
                 
-                    2025-08-10
+                    2025-08-11
                 
             </span>
         </span>
@@ -943,7 +941,7 @@ mjx-container[display="true"] + br {
                     
                         
                         <li>
-                            <a href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>&nbsp;
+                            <a href="/categories/%E9%A2%98%E5%8D%95/">题单</a>&nbsp;
                         </li>
                     
                     
@@ -953,7 +951,7 @@ mjx-container[display="true"] + br {
                             <li>></li>
                         
                         <li>
-                            <a href="/categories/%E9%A2%98%E8%A7%A3/OI/">OI</a>&nbsp;
+                            <a href="/categories/%E9%A2%98%E5%8D%95/OI/">OI</a>&nbsp;
                         </li>
                     
                     
@@ -963,7 +961,27 @@ mjx-container[display="true"] + br {
                             <li>></li>
                         
                         <li>
-                            <a href="/categories/%E9%A2%98%E8%A7%A3/OI/Difficulty-6/">Difficulty_6</a>&nbsp;
+                            <a href="/categories/%E9%A2%98%E5%8D%95/OI/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E9%A2%98%E5%8D%95/OI/%E6%95%B0%E5%AD%A6/%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0/">组合计数</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E9%A2%98%E5%8D%95/OI/%E6%95%B0%E5%AD%A6/%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0/Difficulty-3/">Difficulty_3</a>&nbsp;
                         </li>
                     
                     
@@ -978,17 +996,12 @@ mjx-container[display="true"] + br {
                     
                         <li>
                             
-                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">图论</a>&nbsp;
+                            <a href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
                         </li>
                     
                         <li>
                             | 
-                            <a href="/tags/%E4%BA%8C%E5%88%86%E5%9B%BE/">二分图</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D/">最大匹配</a>&nbsp;
+                            <a href="/tags/%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0/">组合计数</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -996,7 +1009,7 @@ mjx-container[display="true"] + br {
         
     </div>
 
-    <a href="/2025/08/10/%E9%A2%98%E8%A7%A3%EF%BC%9AP10936-%E5%AF%BC%E5%BC%B9%E9%98%B2%E5%BE%A1%E5%A1%94/">Read more<span class="seo-reader-text">题解：P10936 导弹防御塔</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/08/11/%E9%A2%98%E5%8D%95%EF%BC%9A%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0-01/">Read more<span class="seo-reader-text">题单：组合计数 01</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1011,28 +1024,27 @@ mjx-container[display="true"] + br {
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2025/08/10/%E9%A2%98%E8%A7%A3%EF%BC%9A-A1005-%E6%B5%81%E6%B0%B4%E9%9D%A2%E6%9D%A1/">
-                            题解：#A1005. 流水面条
+                        <a href="/2025/08/11/%E9%A2%98%E8%A7%A3%EF%BC%9AB4031-%E8%AF%AD%E8%A8%80%E6%9C%88%E8%B5%9B-202409-%E5%A7%8B%E7%BB%88/">
+                            题解：B4031 [语言月赛 202409] 始终
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            
-使得该路径上的节点加上一个非负值，且该值单调不上升。
-
-注意到一定有解，因为非负值可以取零，所以单点修改是可行的。
-对于一个节点 ，它的子节点  代表的子树上的情况一定是互不干扰的，因为  是...
+                            题目描述已知小写字母组成的字符串 ，请求出它有多少首字母与尾字母相同的子串。
+题解（第一次写红题题解，好激动 bushi）
+注意到  做法，但是他不够优秀，如果 ，这个题目其实也是红题。
+考虑字...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun Aug 10 2025 09:02:43 GMT+0800">
+            <span class="home-article-date" data-date="Mon Aug 11 2025 18:19:54 GMT+0800">
                 
-                    2025-08-10
+                    2025-08-11
                 
             </span>
         </span>
@@ -1065,7 +1077,7 @@ mjx-container[display="true"] + br {
                             <li>></li>
                         
                         <li>
-                            <a href="/categories/%E9%A2%98%E8%A7%A3/OI/Difficulty-5/">Difficulty_5</a>&nbsp;
+                            <a href="/categories/%E9%A2%98%E8%A7%A3/OI/Difficulty-1/">Difficulty_1</a>&nbsp;
                         </li>
                     
                     
@@ -1080,17 +1092,12 @@ mjx-container[display="true"] + br {
                     
                         <li>
                             
-                            <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>&nbsp;
+                            <a href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
                         </li>
                     
                         <li>
                             | 
-                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">图论</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/%E6%A0%91%E5%BD%A2-DP/">树形 DP</a>&nbsp;
+                            <a href="/tags/%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0/">组合计数</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -1098,7 +1105,7 @@ mjx-container[display="true"] + br {
         
     </div>
 
-    <a href="/2025/08/10/%E9%A2%98%E8%A7%A3%EF%BC%9A-A1005-%E6%B5%81%E6%B0%B4%E9%9D%A2%E6%9D%A1/">Read more<span class="seo-reader-text">题解：#A1005. 流水面条</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/08/11/%E9%A2%98%E8%A7%A3%EF%BC%9AB4031-%E8%AF%AD%E8%A8%80%E6%9C%88%E8%B5%9B-202409-%E5%A7%8B%E7%BB%88/">Read more<span class="seo-reader-text">题解：B4031 [语言月赛 202409] 始终</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1113,27 +1120,25 @@ mjx-container[display="true"] + br {
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2025/08/10/%E9%A2%98%E8%A7%A3%EF%BC%9AP8776-%E8%93%9D%E6%A1%A5%E6%9D%AF-2022-%E7%9C%81-A-%E6%9C%80%E9%95%BF%E4%B8%8D%E4%B8%8B%E9%99%8D%E5%AD%90%E5%BA%8F%E5%88%97/">
-                            题解：P8776 [蓝桥杯 2022 省 A] 最长不下降子序列
+                        <a href="/2025/08/11/%E8%AF%BE%E7%A8%8B%EF%BC%9A%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0-%E7%AC%AC%E4%B8%80%E8%AE%B2-%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E5%85%A5%E9%97%A8/">
+                            课程：组合计数 第一讲 排列组合入门
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            本蒟蒻接触 OI 半年以来的第一篇题解，不会树状数组，只好使用朴素的拼接计算的方式了。
-这是对变量名以及缩写的解释：
-
-：最长不降子序列。（Longest Not Decrease Sequen...
+                            概念加法原理与乘法原理
+若将问题划分为若干两两互斥的情形 ，则总数为 （加法原理）。若一个构造过程分成相继的若干步，且“每条合法方案”可由各步的选择唯一确定，则总数为各步可选数目的乘积（乘法原理...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun Aug 10 2025 09:01:16 GMT+0800">
+            <span class="home-article-date" data-date="Mon Aug 11 2025 15:32:35 GMT+0800">
                 
-                    2025-08-10
+                    2025-08-11
                 
             </span>
         </span>
@@ -1146,7 +1151,7 @@ mjx-container[display="true"] + br {
                     
                         
                         <li>
-                            <a href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>&nbsp;
+                            <a href="/categories/%E8%AF%BE%E7%A8%8B/">课程</a>&nbsp;
                         </li>
                     
                     
@@ -1156,7 +1161,7 @@ mjx-container[display="true"] + br {
                             <li>></li>
                         
                         <li>
-                            <a href="/categories/%E9%A2%98%E8%A7%A3/OI/">OI</a>&nbsp;
+                            <a href="/categories/%E8%AF%BE%E7%A8%8B/OI/">OI</a>&nbsp;
                         </li>
                     
                     
@@ -1166,7 +1171,27 @@ mjx-container[display="true"] + br {
                             <li>></li>
                         
                         <li>
-                            <a href="/categories/%E9%A2%98%E8%A7%A3/OI/Difficulty-5/">Difficulty_5</a>&nbsp;
+                            <a href="/categories/%E8%AF%BE%E7%A8%8B/OI/%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0/">组合计数</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E8%AF%BE%E7%A8%8B/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E8%AF%BE%E7%A8%8B/%E6%95%B0%E5%AD%A6/%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0/">组合计数</a>&nbsp;
                         </li>
                     
                     
@@ -1181,17 +1206,12 @@ mjx-container[display="true"] + br {
                     
                         <li>
                             
-                            <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>&nbsp;
+                            <a href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
                         </li>
                     
                         <li>
                             | 
-                            <a href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/">基础算法</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>&nbsp;
+                            <a href="/tags/%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0/">组合计数</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -1199,7 +1219,7 @@ mjx-container[display="true"] + br {
         
     </div>
 
-    <a href="/2025/08/10/%E9%A2%98%E8%A7%A3%EF%BC%9AP8776-%E8%93%9D%E6%A1%A5%E6%9D%AF-2022-%E7%9C%81-A-%E6%9C%80%E9%95%BF%E4%B8%8D%E4%B8%8B%E9%99%8D%E5%AD%90%E5%BA%8F%E5%88%97/">Read more<span class="seo-reader-text">题解：P8776 [蓝桥杯 2022 省 A] 最长不下降子序列</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/08/11/%E8%AF%BE%E7%A8%8B%EF%BC%9A%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0-%E7%AC%AC%E4%B8%80%E8%AE%B2-%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E5%85%A5%E9%97%A8/">Read more<span class="seo-reader-text">课程：组合计数 第一讲 排列组合入门</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1214,24 +1234,29 @@ mjx-container[display="true"] + br {
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2025/08/10/%E9%A2%98%E8%A7%A3%EF%BC%9AP4912-%E5%B8%95%E7%A7%8B%E8%8E%89%E7%9A%84%E9%AD%94%E6%B3%95/">
-                            题解：P4912 帕秋莉的魔法
+                        <a href="/2025/08/10/%E8%AF%BE%E7%A8%8B%EF%BC%9A%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%AC%AC%E4%BA%8C%E8%8A%82-%E6%95%B0%E5%88%97%E7%9A%84%E6%9E%81%E9%99%90/">
+                            第一章 第二节 数列的极限
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            本题是处理 含有负值的01背包 的【模板】
-题目翻译：
- 个物品， 的初始资金，对于每个物品  有  的花费与  的收益，而且我们只能按照输入的先后顺序选择物品，并且对于每次选择物品，会获得  ...
+                            概念数列
+把一列实数  按正整数的次序排列称为实数数列，记作 。亦可视为函数 。
+
+要点
+给法：显式式 、递推式 、列举法。
+术语：第  项 ；首  项。
+
+例子 1；显式给出，随  增大逐渐变...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun Aug 10 2025 08:59:39 GMT+0800">
+            <span class="home-article-date" data-date="Sun Aug 10 2025 20:07:23 GMT+0800">
                 
                     2025-08-10
                 
@@ -1246,7 +1271,7 @@ mjx-container[display="true"] + br {
                     
                         
                         <li>
-                            <a href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>&nbsp;
+                            <a href="/categories/%E8%AF%BE%E7%A8%8B/">课程</a>&nbsp;
                         </li>
                     
                     
@@ -1256,7 +1281,7 @@ mjx-container[display="true"] + br {
                             <li>></li>
                         
                         <li>
-                            <a href="/categories/%E9%A2%98%E8%A7%A3/OI/">OI</a>&nbsp;
+                            <a href="/categories/%E8%AF%BE%E7%A8%8B/%E5%BE%AE%E7%A7%AF%E5%88%86/">微积分</a>&nbsp;
                         </li>
                     
                     
@@ -1266,7 +1291,17 @@ mjx-container[display="true"] + br {
                             <li>></li>
                         
                         <li>
-                            <a href="/categories/%E9%A2%98%E8%A7%A3/OI/Difficulty-4/">Difficulty_4</a>&nbsp;
+                            <a href="/categories/%E8%AF%BE%E7%A8%8B/%E5%BE%AE%E7%A7%AF%E5%88%86/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/">高等数学</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E8%AF%BE%E7%A8%8B/%E5%BE%AE%E7%A7%AF%E5%88%86/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%AC%AC%E4%B8%80%E7%AB%A0-%E5%87%BD%E6%95%B0%E4%B8%8E%E6%9E%81%E9%99%90/">第一章 函数与极限</a>&nbsp;
                         </li>
                     
                     
@@ -1281,17 +1316,12 @@ mjx-container[display="true"] + br {
                     
                         <li>
                             
-                            <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>&nbsp;
+                            <a href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
                         </li>
                     
                         <li>
                             | 
-                            <a href="/tags/%E8%83%8C%E5%8C%85-DP/">背包 DP</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/offset/">offset</a>&nbsp;
+                            <a href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/">微积分</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -1299,7 +1329,7 @@ mjx-container[display="true"] + br {
         
     </div>
 
-    <a href="/2025/08/10/%E9%A2%98%E8%A7%A3%EF%BC%9AP4912-%E5%B8%95%E7%A7%8B%E8%8E%89%E7%9A%84%E9%AD%94%E6%B3%95/">Read more<span class="seo-reader-text">题解：P4912 帕秋莉的魔法</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/08/10/%E8%AF%BE%E7%A8%8B%EF%BC%9A%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%AC%AC%E4%BA%8C%E8%8A%82-%E6%95%B0%E5%88%97%E7%9A%84%E6%9E%81%E9%99%90/">Read more<span class="seo-reader-text">第一章 第二节 数列的极限</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1309,7 +1339,7 @@ mjx-container[display="true"] + br {
 
     <div class="home-paginator px-7 py-5">
         <div class="paginator">
-	<a class="extend prev" rel="prev" href="/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa-regular fa-angle-right"></i></a>
+	<a class="extend prev" rel="prev" href="/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
   
     </div>
@@ -1338,11 +1368,11 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">31</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">39</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">46</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -1423,7 +1453,7 @@ mjx-container[display="true"] + br {
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        39 posts in total
+                        46 posts in total
                     </span>
                     
                 </p>
