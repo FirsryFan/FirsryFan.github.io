@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Algorithm, Mathematics, Artificial_Intelligence">
+    
+    <meta name="author" content="Firsry">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://FirsryFan.github.io/2025/10/19/something-for-someone/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="杂记：Something For Someone">
+<meta property="og:url" content="https://firsryfan.github.io/2025/10/19/Something-For-Someone/index.html">
+<meta property="og:site_name" content="Zone of Algorithm">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://firsryfan.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-10-19T03:56:44.000Z">
+<meta property="article:modified_time" content="2025-10-19T03:59:20.203Z">
+<meta property="article:author" content="Firsry">
+<meta property="article:tag" content="Algorithm, Mathematics, Artificial_Intelligence">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://firsryfan.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#91A264">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            杂记：Something For Someone | Zone of Algorithm
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+        <link href="" rel="stylesheet">
+    
+    
+        <link href="" rel="stylesheet">
+    
+    
+    
+        <link href="" rel="stylesheet">
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"firsryfan.github.io","root":"/","language":"en","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["AC/WA/RE/TLE"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"atom-one-dark"},"font":{"enable":true,"family":"Cascadia Mono","url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#91A264","secondary":"#A22D60","default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":true,"family":".Heiti GB18030PUA","url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1600px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":false,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":"Do not go gentle into that good night."},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/light_mode.jpg","dark":"/images/dark_mode.jpg"},"title":"Zone of Algorithm","subtitle":{"text":["Do not go gentle into that good night."],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":false,"smart_backspace":true,"custom_font":{"enable":true,"family":"Chillax"}},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"3.2rem","subtitle_size":"1.6rem","line_height":1.2},"custom_font":{"enable":true,"family":"Chillax","url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#A22D60","right":"#91A264","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-thin fa-house"},"Archives":{"path":"/archives","icon":"fa-thin fa-archive"},"categories":{"path":"/categories","icon":"fa-thin fa-folder"},"tags":{"path":"/tags","icon":"fa-thin fa-tags"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"cloud"},"home":{"sidebar":{"enable":true,"position":"right","first_item":"info","announcement":"Essence of Mathematics","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-thin fa-archive"},"Tags":{"path":"/tags","icon":"fa-thin fa-tags"},"Categories":{"path":"/categories","icon":"fa-thin fa-folder"},"Friends":{"path":"/links","icon":"fa-thin fa-users"}}},"article_date_format":"auto","excerpt_length":100,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2025/8/9 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+        
+<link rel="stylesheet" href="/fontawesome/thin.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        Do not go gentle into that good night.
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Zone of Algorithm
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-thin fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-thin fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-thin fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags"
+                                        >
+                                    <i class="fa-thin fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-thin fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-thin fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-thin fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-thin fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-thin fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-thin fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/links"
+                        >
+                            <span>Friends</span>
+                            <i class="fa-thin fa-users fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">78</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">41</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">74</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">杂记：Something For Someone</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/Che.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Firsry</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">AC/WA/RE/TLE</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-10-19 11:56:44</span>
+        <span class="mobile">2025-10-19 11:56:44</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-10-19 11:59:20</span>
+            <span class="mobile">2025-10-19 11:59:20</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E6%9D%82%E8%AE%B0/">杂记</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+    
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			
+<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="b4819616df9d12621193f4571530020e3c8f02c3bc8f5344672678e2e4567a7a">4433789a4d6e8278b065450da7ffa617d3b507d7ccf1f4b4cdecd175559520075c726d8900d4f31f75db7058246f5d7a26ca8c7c7608205c9fffac5092cfdd954e5f32dc832d2722e494a27622d34d26e266ab6423ba20fe55dc0491fd6aaa3b06374821ed52a7d5b9c149ccb83b86d076ed15c6e58c8e2026c226067e8b2de9f88773f83ffc36e0b4a36d40822634aa9e9e572b5f9ae332891528a22f08adef9f4cb4f6e32dacfda7bfd9ed16e6d339afe738d0b9ba9cf721e6998624302b47aff2a0eccf9701ed666bad23d7ab74ec9320876c405c7784f0e30b1b19d107a173efb66e560b8ca82ab4b954a447fb861ae3dbd07b4440a11c7f45af07474c82e6f8331b3e663544d8754d0fc25fb8c35572793bc4b9a755bf21a353c1d1d46df0b28439fbbed720c8bff82b30bedede8c956557535bf103334fc9085d32cbe84aa6cc97946ee420cc5c1556dad88550468cb2b65ba5a780c8bd551ba28e4c32dda443bbd316172c9c4756c5cf055d1b9079454bcd033013d134e76ee4dee54062d6da0deeb60325ad36a074fe52b39361c6e8af19a5be960e1955594007bbb6dec1ca658c7fa3e21a3ecaa0cf1a349d2b8c76daec5e5d28759eff031847e4e932c14787124249e446c175cd6779ec39a6cf50a3260b5a175f78a2ccd88bc87ec0c8361d747fc42b86f388b6fae3de930b12fc4653fb0fb2368a555ced5d5a91ff2fd43a7d72e7f74fb9444af23cbe6677e078de14f7346db9c498fa0da85a3468cee90eec8615124ee1ce02a6f842457f9d7848f1ed055837f85ce8b34c59ab6544ca52af30792361a3abc3a9b066daed3e58b78d8b30ab43eca74f270a8e368e25e66f74a7c8b243f296cb3df8867af12570c92e03945e84ab54611596957fb8c8691d7636226910575fca9effe63066b105a405d39d51ea5b7695aa8aee57dfc8570141fe13c7167dde3cccad6b6095d8a50dd476bf72b800e7a3ba4b30aa80b7acc17c09aa3ed2f152fade762d232849026b15da269162ed791af93baf36a244590f54c459410b641631850424cbbf5235bebd65faf7d22cd64d7fa7cb2dee254579a01f5111a5b17153957423485a3032bad4a5ab5316035b14e3924b629cdba4b4a97b5b4ea0d1c36f956c22df55b09e7fa2de5a7fac786609c637322ef74fb338bfbca0531f1759ca683209c54ce3fea2bc915c1e0ef754a446c72409b416f1ddcd976edcd8f0a22e5a5e23c0a08a4c8a58f4cfadc36b4bc470bcc03d533899229bcf2d024ae9dbb8056ec75a8bee8bdaf713e39b7432d824b7b3a6409bd1302247e532c94fb9a4a8dc1969fd3a40ab2d2be031ce736ea4b3dae885448b4e835707599c7a34f52a18aaaacfb21d6508750ceec39a84d2c2afe836d260e11cf75b6159df8a11b0588ab8cc0d80b1eb265d31501cb35606daa56bf398e9662c29a754b6d9dc950b30d3d26292f6fc44c654a9beb279a37905c5e85beac6a0af8310dae8b4e2af5576d43f79094d98f51f1cc6e28c07571aa9747bdcadcabd9fce08c22c96ed61a22985b4f1da180bfc68eb40c8f393a2c01533dc4672ca4228619f5c2686b11b174c904f76ee3b2dbef895f5d390adb95e4e5b044eed93c726880310ba684171273f9bfa1437480b9a365cd95df453a8c6fc0fb6b205237105ace97e86e7bbb853fed34de747b716ca1f437bc011706e7a0ca6b4908234e85b943f2327dd28b8a6fd727cf9fe87395ecbba49aa37c617acce1efc0e8e58752d2d88887ad48411aa86765fbe6156e2d475779da5cd9fe8236c4199c0ca4fdf8046ba3a6f30a97fc6e3333ca6eee0b7e526667cf8a5142bf8fa744d432f2f50e12a9233f8d290afe16c70f990b1c9a7bdd62e43933c33f232658ce17a430dde9e137ee4bc4e58ef763c273965742d9d38e8f6cd37274c637c05e93f3ca4483157f2669f0c6b46edca5ace0c23737dd5b6bf816d069f379097386b303559792ce6b57c9efb929d3f83f08e8f8659b26cc9bc83bc803fd31129beb58252a2904e42a0757543e5b5e0685e129da8c7a6925a58064425c76b8b44cb61d998df9524fbf954be2a33a0d6fe6f652ad3a06a7cfb3711440930bae3335597d32a56ba5b753ca87f4d1fdf6c0b298ef8abc305a180d7bd56ff866648714adb0187d98281c65e9aeb211820f78718901ff3805180ef10e862d91d2c9db36c16fda269d051915ff3bcb1af38a2a6eb0a5c9dc817b49003d91ee711cd5c251abb7a8cb166a62a85a5f86a2536de7484c50396c8d8026861ed14f502cd8e8122ed5620c475d94d4617e369073ff82af9195401ca5fc2b24241c2c8820ee692645fa11370df3a75dda4fefb6a77f1a7d23e4b43cd183784582d5014a0cd81b4f01f7288d2e1e8a76e35e835dd4003248ea81c34283588c6144e1282672501f73acf732e5926619391b876a3c431437aa3c2a90e6fb4369f76095d7024ca1037fa96ed1886dd6984a36a07942a637877a9acfd31f18eda2924a1b2cda5cf94336e4f340f311a2fb04827d951cac9ccfcc76e13e7b8ab9103bed18b4a58555ea50352596f9d369d174d795f8e489d0b32ce9dc4082dee47710581187f4a6b4dbf3df536e99505212c16f239a165f6a0f6db959bc5d29e33bf377055aa77f2dc907e81d28a80e05370ea0a6fd1c9cb0ef591d3452e30cb9d72da5b9d987ce01b5f4e5144debb21b4cb115e97e58099345b6bea28298a3c7670f96b7e99771439654c89ad3b9aec19ecb164d7500cb0f0d6ab5d64da46bdf4bca892daa6c87ec129e7444cecaecf93eb4b969541f51d964cfc6ce0fb6f1ec92f15bb68faa1f75e1f3f485424ce2ce282e0b7ccc6f21e17b99194363e3a53c27852438af709ee5c0f91c40e414b63c8f8577c983a1eb23c64f40c93daf8d706351367f997587b24fb3365f7244d2222209352a32cdc917f2e7d4510eaffbc123b7b948b01f434c24a27d2ce2e5eaf0bf5c1e166517304193ea81bfe60f1ba4c9cebb1b51295bfd773429b1be68787eba6fb4083f4f3e3f433eafe64d6975763eeaa9433657e6811c3569d07d0071aaf62273e1ccee8b4cdd290575096af67ec7a330a261f5ac40671a27feb37b24cac15d442c39afd44143f1ea7466ae9caf0c91c71b3523fbab0a5c9a5d599fdc65cdb0607e2bde2bb7d3ce0f95bcd039fe1f57954b7996072192e6ce4a00dad5612183974a4aeaac8ff20cf02dc72be147242ac22cae4e30f564a986a5f2b3e1a8ccc98b2356558108370b3af6d2069bdf6aed5c9b6d291714ce288a49d86c18459c19196ed010393295aaaab3e425d66bfe2fbaa9d98567df79caf8d61fee66baa8a2c9ca4ddbd463006c670571d05c1b637f6b1a4fb6dc554bcfd37c0d4240b4e2080c5495fb40a4d57fd658e066f1c1602113cd1bff4eff99c50b5ccf7514aa154c22a380bbd2a5d3e0768d3f037026d946c6f510e00d740159bc8b88126b6b99d6996b2461e96d9afd047abff997c497e7086fc65b7231b30b2243e71494b207391e89db561292dbc7b004cae347b4a614ceadf58bfb222b48228cbd1f356cdd4ff560366266b8ae1516110d924d9dbf2b3dfcaf6e4b1b4096337577d2b10422ba30c14e6ab7c759835e5151ea953198dfe2e5b3d5b55e6b7fac356ee0f27c39371062113379e0e3bdc8c1f592f2b3db00334bf4b51458d40d9af1c28a752c375f2f32ed2abadfa5b3b8872527b7bd8559212a4c1bdff26e2891be7efbf901c01f7107be9509e27171423311afbc48f1739d82b522305256a9684032ba4912028bfc371eea4670a8e55ee95bf2f38c83955d9c7cac4fb5fa929db4fc8dbd0a1c8e3ba07864babc64eebcd6bcc96c85660e71661c814c65b197888723b14e52b39e38ecdf057a295c5481eac2eba40684a58ad52e7d07413fc3303ba0e51f3622e81eaf4e0f9ca786028c57adfed5a2af996b3222e006922a102eb0971191565d68a00ad703cd50198355897e3d354b29c67b52f3af23b52013ebb157dc2fc44260c61f225dca4161c77e0d9797455c3cf41f177b92090fc2d1b987c26257deb9bcc57888e71a311891b937c0aa5ac4fe34ebecf2d23b09a737b727628a6b0b411ccb675e5841d96bc6c56ac48f2834ca1ad5cf02ab9fab44d5585146e4c8154b22bf6a5f81074fbbbadfc65254abf3036458de79fb472e6f3aea4bed9ed6d237a8697c42c1053aa3eee94bfa1f8c61600ff5c3f4b476fea171280a8ff3026e857bdb4794930ae915e900015d71613bf62e2bb8e711f9453c85b8e5f9a324c38d96d6441839adcc4162106a555ce9d5894cc29f348dab62c896c43ae2c1bb64ba12c7b8ac50039dfc3a4f5bda4321f7e49c09f4474779e1b4e0e70b2d821ce0403c626643d0ac8330db75ccb2d905972eb10c66103f8e1e75c3d8a3d7fe046ea826b9334b7fa8f8b3db2b4101c4244f0fe64558a43a35b2762df0791db62db5a5bb6f8797bea490c904e553d067a02832407d0ab88fcce33d938ddf7acef95105da808436fffa8e4d31419cf5e3900b7b2fcc7aab9c1565349c7be84c77c17d435cda795fecead4792bd4244d5486e06c93766be3b074aad00c6c8f0c3f2f5602fd697fcbf07ba65ddf933d3d855224a38e480f5847c377fb4f8b6837ced177392301be874f4317369b2c01cff0612901736cb73f70d6748fd7d6198d84507eb5e231e9c82a010152f607bdf52e5331e49dd65ac6b32c0f7dbe7ea48965d8774ec7d70c4dd580a719eb3d982231c80b7d61ec4d2c1fc415be06c50dc4f6f6d8dcc8abbd08d75428d4339b033470a21e89a960848f0c2193c8cc3891987604cc326d985f3da0efb5f75a01953c743afd5d019e75527fe96cda534c36a7544de3623e4f005ea0de61ed1f9e0d17bbfa4b9267f94a1153fc301e9efbe7b849cb159b3050085285865f22f26ac9cf4ec7f029115d2567981a916135674795333abf4b724293365f7c5141c9eab10b35d6ed75395b1b2c50b3f8b920caf60bf133ea4a191da6833d1f56abf91dfe64fa6da6e8e213195a8dcbe61dcdc1e887c6879ffa0a06b7b2978f7cf4c15c7b644e78d38907c9f70d246a447a83ec83c350f26826b2e6d6923801a792677f4d4d8aac6607e8b52397cde692e21fe35646e794e461926df6c3864ec32d1f928cbca92f8fd9a223f71bd63784e13a3a58a3a72b456c6bdb7502b8a389d7d2fac9635e41c47ed80aaa9b1504693a7bc5bb0ed34e542c36a242914ac27ae279a9c8f79337ad56b7c1e1d94177b87fbd93393b8ca03204127ec93ee47093ee12f82247fed657d332ca00268a3b522c66cdedec8b04b6aab0495f9668272c89c29522fc09e34b168a10b0740d4c92c4f05247863cf34333c8b8124543bd7e4e2d2a00f4e2a3cf71017e7a523bce625c1fcf3f785ebebde10f841a02e369c25cd646a2e4a200369e9175c58856ac14ac79c5e84fd093bafcb5d0a4ef063919d84d67e813e0bb4c888b8b993b470ff174c1932a62a79e38dab2eff47b3d3acce1c679b8d40f76261272fb2a77b9ccd3439c3bd7dc89ac8693f612e7a40cbef84e36750b8266c3047965781da266eb4fd89117794a7f07975c151b85e9f0e08b13053a65984bef0a96e4e7decb8eb1c9263c442dceab42ab837f94b634b1f1abdc8c5b011b1bd3f41dc37823838dd293773c348372a1909686a43ad3653de446a235337ef66bd8b843f72554cb44e5eabbe7bd05bfe97bc9a8d7bfd53df64c821b315c0a43ed77f8044198307e49e7d05d8cac73f390e5ae671fc552aeb6a5452cfb7228872ed85c4b6d836847f7c2416d0080fdf0a2b737fe9f5e700a062273701a5bc9917cd6dc893ba4417ee8d37e7a82ee33ba7ea26ab987a64f27ac14f17aeb458b55f55b1b309f427064066685ce6bd937c954d479139c098b82b784a1f62b15ec1dfa1cd09181bb64ba43d2873b0faaad530f82b5f1beba23a58a4794a3377749decbb0c725e028182538416d7d76949db1496b11190f37b36490ccb7b6ed20c51d666e86120439f8b545a422b40f57b5114d16d6e0689eca3c9c6d9735517ae8525b5224af2effee7c1c342c879f0ad31ab972224fd49e7bbfde3b4bbb2231ef6f159376b28d8cb09974c93f0fc4238cd1efbb83bfcc135ae3c63cd86b4519db8b4f3a473d7f6ec9b128c18b3fc2cc17c8e90e6f49691da2aec60f6e7f362de5bdf6b53d78f5f6bb6bd51fc108df53933014dc4947fd1a0cee7a6e110676e52e306edbd107bd9cbac15ae0bc4b5cf46d0b95ac51c92575f510c7e1e3321a4f07683c7083307699b9431e4b45eed67483b73d18dcf130d1475de28ee6e6d07b05200f7a0e1a5c421ffc2265ee415380a7877f570d7a472859fcdd536af94301777b85a59cf0e74aa05ad9eb4587b3f868a84b62be8b864d270f9bb388b888f984253925c80a64ffd0a8c4b6f016c9ae38bcd695846f2fb57511646121e8fdc375ad2991faed1e6926a834b9b3cf45bc659d7b5dc</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<link href="/css/hbe.style.css" rel="stylesheet" type="text/css"><script data-swup-reload-script type="module" src="/js/plugins/hbe.js"></script>
+<script data-swup-reload-script type="module">
+import {initHBE} from "/js/plugins/hbe.js";
+  console.log("hexo-blog-encrypt: loaded.");
+    initHBE();
+</script>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 杂记：Something For Someone</li>
+        <li><strong>Author:</strong> Firsry</li>
+        <li><strong>Created at
+                :</strong> 2025-10-19 11:56:44</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-10-19 11:59:20
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://firsryfan.github.io/2025/10/19/Something-For-Someone/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/09/14/%E5%AD%A6%E6%9C%AF%EF%BC%9A%E6%B5%85%E8%B0%88%E5%BF%AB%E9%80%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%20FFT/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48"></span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">杂记：Something For Someone</div>
+		
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+            <div class="customize-info my-1">没有一个大牛天生就会所有的算法</div>
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2025</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Firsry</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        74 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+    
+<script src="/js/build/libs/minimasonry.min.js"></script>
+
+    
+<script src="/js/build/plugins/masonry.js" type="module"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
